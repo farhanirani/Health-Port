@@ -4,38 +4,38 @@ const User = require("../models/userModel");
 
 //========================================================================================
 /*                                                                                      *
- *                              User Routes
+ *                              User Register
  *                                                                                      */
 //========================================================================================
 module.exports.registerUser = async (req, res, next) => {
   try {
-    let { email, password, passwordCheck, displayName } = req.body;
+    let { userName, password, confirmPassword } = req.body;
 
     // validate
 
-    if (!email || !password || !passwordCheck)
+    if (!userName || !password || !confirmPassword)
       return res.status(400).json({ msg: "Not all fields have been entered." });
-    if (password !== passwordCheck)
+    if (password !== confirmPassword)
       return res
         .status(400)
         .json({ msg: "Enter the same password twice for verification." });
 
-    const existingUser = await User.findOne({ email: email });
+    const existingUser = await User.findOne({ userName: userName });
     if (existingUser)
       return res
         .status(400)
-        .json({ msg: "An account with this email already exists." });
+        .json({ msg: "An account with this username already exists." });
 
-    if (!displayName) displayName = email;
+    //all parameters passed
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-      email,
+      userName: userName,
       password: passwordHash,
-      displayName,
     });
+
     const savedUser = await newUser.save();
     res.json(savedUser);
   } catch (err) {
@@ -73,17 +73,18 @@ module.exports.tokenIsValid = async (req, res) => {
 
 module.exports.loginUser = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    // console.log(req.body);
+    const { userName, password } = req.body;
 
     // validate
-    if (!email || !password)
+    if (!userName || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ userName: userName });
     if (!user)
       return res
         .status(400)
-        .json({ msg: "No account with this email has been registered." });
+        .json({ msg: "No account with this username has been registered." });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
@@ -93,7 +94,7 @@ module.exports.loginUser = async (req, res, next) => {
       token,
       user: {
         id: user._id,
-        displayName: user.displayName,
+        userName: user.userName,
       },
     });
   } catch (err) {
@@ -123,7 +124,7 @@ module.exports.deleteUser = async (req, res, next) => {
 module.exports.homeUser = async (req, res) => {
   const user = await User.findById(req.user);
   res.json({
-    displayName: user.displayName,
+    userName: user.userName,
     id: user._id,
   });
 };

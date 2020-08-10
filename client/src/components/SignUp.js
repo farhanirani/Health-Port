@@ -1,8 +1,4 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import UserContext from "../context/UserContext";
-import axios from "axios";
-
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -33,36 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
-  const [userName, setUsername] = useState();
-  const [password, setPassword] = useState();
-
-  const { setUserData } = useContext(UserContext);
-  const history = useHistory();
-
-  const submit = async (e) => {
-    e.preventDefault();
-    try {
-      const loginUser = { userName, password };
-      // console.log(loginUser);
-      const loginRes = await axios.post(
-        "http://localhost:5000/api/users/login",
-        loginUser
-      );
-      setUserData({
-        token: loginRes.data.token,
-        user: loginRes.data.user,
-      });
-      localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
-    } catch (err) {
-      console.log(err.response.data.msg);
-    }
-  };
-
-  //
-
+export default function SignUp() {
   const classes = useStyles();
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -71,19 +40,17 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Log in
+          Sign Up
         </Typography>
-
-        <form onSubmit={submit} className={classes.form} noValidate>
+        <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="userName"
+            id="uname"
             label="Username"
-            name="userName"
-            onChange={(e) => setUsername(e.target.value)}
+            name="uname"
             autoFocus
           />
           <TextField
@@ -91,11 +58,20 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="password"
-            label="Password"
             name="password"
+            label="Password"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            id="confirmPassword"
           />
           <Button
             type="submit"
@@ -104,10 +80,10 @@ export default function Login() {
             color="primary"
             className={classes.submit}
           >
-            Login
+            Sign Up
           </Button>
-          <Link href="/signup" variant="body2">
-            {"Don't have an account? Sign Up"}
+          <Link href="/login" variant="body2">
+            {"Already a user? Sign In"}
           </Link>
         </form>
       </div>

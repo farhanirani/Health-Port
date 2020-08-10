@@ -2,10 +2,9 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-    "email":"asd@asd.com",
+    "userName":"fki" ,
     "password":"asd",
-    "passwordCheck":"asd",
-    "displayName":"fki" 
+    "confirmPassword":"asd"
 }
 
 ###
@@ -14,21 +13,21 @@ POST http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-    "email":"asd@asd.com",
+    "userName":"fki" ,
     "password":"asd"
 }
 
 ###
 POST http://localhost:5000/api/users/tokenIsvalid
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBiODU3Y2IzY2ZjMDhkMDY5YjgyMSIsImlhdCI6MTU5NzAyODQ0OX0.BMwNCb746wRqy0XlpmFujVngsXGS3BeFRkiLWu1zT2Q
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsImlhdCI6MTU5NzA3MTQwNX0.HqlKM3Cbjc7sA74uyLGpSDnZB8UMgap1ajr2iYhBK00
 
 ###
 GET http://localhost:5000/api/users/
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBiODU3Y2IzY2ZjMDhkMDY5YjgyMSIsImlhdCI6MTU5NzAyODQ0OX0.BMwNCb746wRqy0XlpmFujVngsXGS3BeFRkiLWu1zT2Q
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsImlhdCI6MTU5NzA3MTQwNX0.HqlKM3Cbjc7sA74uyLGpSDnZB8UMgap1ajr2iYhBK00
 
 ###
 DELETE  http://localhost:5000/api/users/delete
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBiODU3Y2IzY2ZjMDhkMDY5YjgyMSIsImlhdCI6MTU5NzAyODQ0OX0.BMwNCb746wRqy0XlpmFujVngsXGS3BeFRkiLWu1zT2Q
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsImlhdCI6MTU5NzA3MTQwNX0.HqlKM3Cbjc7sA74uyLGpSDnZB8UMgap1ajr2iYhBK00
