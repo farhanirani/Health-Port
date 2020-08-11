@@ -7,7 +7,7 @@ const User = require("../models/userModel");
  *                              User Register
  *                                                                                      */
 //========================================================================================
-module.exports.registerUser = async (req, res, next) => {
+module.exports.registerUser = async (req, res) => {
   try {
     let { userName, password, confirmPassword } = req.body;
 
@@ -71,7 +71,7 @@ module.exports.tokenIsValid = async (req, res) => {
  *                                                                                      */
 //========================================================================================
 
-module.exports.loginUser = async (req, res, next) => {
+module.exports.loginUser = async (req, res) => {
   try {
     // console.log(req.body);
     const { userName, password } = req.body;
@@ -107,7 +107,7 @@ module.exports.loginUser = async (req, res, next) => {
  *                                                                                      */
 //========================================================================================
 
-module.exports.deleteUser = async (req, res, next) => {
+module.exports.deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.user);
     res.json(deletedUser);
