@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import NavBar from './components/NavBar'
-import SubMenu from './components/SubMenu'
 import axios from "axios";
 import UserContext from "./context/UserContext";
 
@@ -47,7 +46,6 @@ export default function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/navbar" component={NavBar} />
-          <Route exact path="/submenu" component={SubMenu} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>
