@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Test from "./components/Test";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import NavBar from './components/NavBar'
+import SubMenu from './components/SubMenu'
 import axios from "axios";
 import UserContext from "./context/UserContext";
 
@@ -43,9 +44,10 @@ export default function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
         <Switch>
-          <Route exact path="/test" component={Test} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/navbar" component={NavBar} />
+          <Route exact path="/submenu" component={SubMenu} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>
