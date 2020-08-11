@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import NavBar from './components/NavBar'
 import axios from "axios";
 import UserContext from "./context/UserContext";
+import Test from "./components/Test"
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -42,10 +43,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
+        <NavBar />
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/navbar" component={NavBar} />
+          <Route exact path="/test" component={Test} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>

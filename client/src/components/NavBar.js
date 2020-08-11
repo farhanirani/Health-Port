@@ -11,7 +11,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import NavBar from "./SubMenu";
+import SubMenu from "./SubMenu";
+import {isMobile} from 'react-device-detect';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -149,11 +151,12 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  if(isMobile){
   return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <NavBar />
+          <SubMenu />
           <Typography className={classes.title} variant="h6" noWrap>
             Health Flex
           </Typography>
@@ -203,4 +206,9 @@ export default function PrimarySearchAppBar() {
       {renderMenu}
     </div>
   );
+            }else{
+              return(
+                <SubMenu />
+              );
+            }
 }
