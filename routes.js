@@ -21,11 +21,19 @@ router.post("/users/tokenIsValid", User.tokenIsValid);
  *                                                                                      */
 //========================================================================================
 
-const  Doctor = require('./controllers/doctorController')
+const Doctor = require("./controllers/doctorController");
 
 router.get("/doctors/", auth, Doctor.homeDoctor);
 router.post("/doctors/register", Doctor.registerDoctor);
 router.post("/doctors/login", Doctor.loginDoctor);
 router.delete("/doctors/delete", auth, Doctor.deleteDoctor);
+
+//========================================================================================
+/*                                                                                      *
+ *                              User Routes
+ *                                                                                      */
+//========================================================================================
+
+const Forum = require("./controllers/forumController");
 
 module.exports = router;
