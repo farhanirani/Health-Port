@@ -157,14 +157,7 @@ export default function SwipeableTemporaryDrawer() {
     right: false
   });
 
-
-
-
-
-
   const menuId = "primary-search-account-menu";
-
-
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -234,8 +227,7 @@ export default function SwipeableTemporaryDrawer() {
   );
   }else{
     return(
-      <div className={classes.root}>
-      <CssBaseline />
+      <React.Fragment>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -313,7 +305,7 @@ export default function SwipeableTemporaryDrawer() {
         ))}
       </List>
       </Drawer>
-    </div>
+    </React.Fragment>
     );
   }
 }

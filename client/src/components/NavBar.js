@@ -153,7 +153,6 @@ export default function PrimarySearchAppBar() {
 
   if(isMobile){
   return (
-    <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
           <SubMenu />
@@ -202,9 +201,6 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
   );
             }else{
               return(
