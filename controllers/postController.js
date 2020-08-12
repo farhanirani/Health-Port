@@ -19,7 +19,26 @@ const Post = require("../models/postModel");
  *                               Create New Post
  *                                                                                      */
 //========================================================================================
+module.exports.createPost = async (req, res) => {
+  try {
+    // console.log(req.user);
+    let author = req.user;
+    let { wforum, title, body } = req.body;
+    const newPost = new Post({
+      whichForum: wforum,
+      author: author,
+      title: title,
+      body: body,
+      upvotes: 0,
+      downvotes: 0,
+    });
 
+    const savedPost = await newPost.save();
+    res.json(savedPost);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 //========================================================================================
 /*                                                                                      *
  *                               Edit Post
