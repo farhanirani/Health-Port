@@ -41,9 +41,12 @@ export default function ImgMediaCard() {
           <Typography gutterBottom variant="h5" component="h2">
             Lizard
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2"component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
             across all continents except Antarctica
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+          Number of Posts: 69
           </Typography>
         </CardContent>
       </CardActionArea>

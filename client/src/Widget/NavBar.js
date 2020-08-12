@@ -14,6 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -148,6 +150,18 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Forum</p>
       </MenuItem>
+      <MenuItem>
+      <IconButton color='inherit'>
+        <LockOpenIcon />
+      </IconButton>
+        <p>Login</p>
+      </MenuItem>
+      <MenuItem>
+      <IconButton color='inherit'>
+        <ExitToAppIcon />
+      </IconButton>
+        <p>Logout</p>
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -209,7 +223,10 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
             <Button color="inherit">Login</Button>
-
+            <IconButton color='inherit'>
+        <ExitToAppIcon />
+      </IconButton>
+            <Button color="inherit">Logout</Button>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
