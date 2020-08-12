@@ -5,10 +5,10 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import axios from "axios";
 import UserContext from "./context/UserContext";
-import Test from "./components/Test"
-import Forum from "./components/ForumPage"
-import NavBar from './Widget/NavBar'
-import SubForum from './components/SubForumPage'
+import Test from "./components/Test";
+import Forum from "./components/ForumPage";
+import NavBar from "./Widget/NavBar";
+import SubForum from "./components/SubForumPage";
 
 export default function App() {
   const [userData, setUserData] = useState({
