@@ -40,16 +40,16 @@ module.exports.getMyPosts = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   try {
     // console.log(req.user);
-    temp = await User.findById(req.user);
+    const temp = await User.findById(req.user);
     let authorName = temp.userName;
     let author = req.user;
     let { wforum, title, body } = req.body;
     const newPost = new Post({
       whichForum: wforum,
       author: author,
+      authorName: authorName,
       title: title,
       body: body,
-      authorName: authorName,
       upvotes: 0,
       downvotes: 0,
     });
@@ -85,6 +85,21 @@ module.exports.deletePost = async (req, res) => {
         res.json(delPost);
       }
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
+ *                               Get comments for the post
+ *                                                                                      */
+//========================================================================================
+
+module.exports.getComments = async (req, res) => {
+  try {
+    const ans = await Comment.find({ commentpostID: req.params.id });
+    res.json(ans);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
