@@ -12,4 +12,4 @@ let commentSchema = mongoose.Schema({
   downvotes: { type: Number, required: true },
 });
 
-let Comment = (module.exports = mongoose.model("Comment", commentSchema));
+module.exports = Comment = mongoose.model("comment", commentSchema);

@@ -16,4 +16,4 @@ let postSchema = mongoose.Schema({
   downvotes: { type: Number, required: true },
 });
 
-let Post = (module.exports = mongoose.model("Post", postSchema));
+module.exports = Post = mongoose.model("post", postSchema);

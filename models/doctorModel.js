@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phoneNumber: { type: String, required: true, unique: true },
-  url: { type: String, required: true }
+  url: { type: String, required: true },
 });
 
 module.exports = Doctor = mongoose.model("doctor", userSchema);
