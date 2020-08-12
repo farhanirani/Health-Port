@@ -1,22 +1,9 @@
-import React, { Component } from 'react'
-import {isMobile} from 'react-device-detect';
+import React, { Component } from "react";
 
 export class TimePass extends Component {
-    render() {
-        if(isMobile){
-        return (
-            <div>
-                Dhat Mobile hai
-            </div>
-        )
-        }else{
-            return(
-                <div>
-                    Dhat PC hai
-                </div>
-            )
-        }
-    }
+  render() {
+    return <div>Dhat Mobile hai</div>;
+  }
 }
 
-export default TimePass
+export default TimePass;

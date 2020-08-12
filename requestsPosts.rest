@@ -1,0 +1,9 @@
+POST http://localhost:5000/api/post/create
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjI3MTE4fQ.rwd_MOJsbtwc3MzqSTwuG9E0B8qWUfpAwlb2vPOtmp8
+
+{
+    "wforum":"5f33b470e90bb52c4c854474",
+    "title":"second post in anxiety forum",
+    "body":"lorem second ipsum"
+}

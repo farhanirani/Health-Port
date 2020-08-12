@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/forum/create 
+Content-Type: application/json
+
+{
+    "title":"Mental Health",
+    "desc":"A safe place to discuss any Mental Health problems"
+}
+
+###
+GET http://localhost:5000/api/forum
+
+###
+GET http://localhost:5000/api/forum/5f33b470e90bb52c4c854474
