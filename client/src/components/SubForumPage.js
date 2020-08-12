@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(8),
   },
   card: {
@@ -67,8 +67,8 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="sm">
           {/* End hero unit */}
           <Grid container spacing={3}>
-              <Grid item key='New' lg={12}>
-              <Card className={classes.root} style={{minWidth: 370,}}>
+              <Grid item key='New' lg={12} md={12} sm={12} xs={12}>
+              <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -92,6 +92,7 @@ export default function Album() {
                   alignItems: 'center',
                   textAlign: 'center',
                   paddingTop: 10,
+                  paddingLeft: '40%',
                   }}>
                     
   <AddCircleOutlineIcon />
