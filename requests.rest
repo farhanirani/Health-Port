@@ -19,12 +19,12 @@ Content-Type: application/json
 ###
 POST http://localhost:5000/api/users/tokenIsvalid
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjI3MTE4fQ.rwd_MOJsbtwc3MzqSTwuG9E0B8qWUfpAwlb2vPOtmp8
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQyOTU2fQ.QPYAV5mYkKv2aF5YT2WqWWYbh4_1ScVtNAm63bVvGLc
 
 ###
 GET http://localhost:5000/api/users/
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjI3MTE4fQ.rwd_MOJsbtwc3MzqSTwuG9E0B8qWUfpAwlb2vPOtmp8
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQyOTU2fQ.QPYAV5mYkKv2aF5YT2WqWWYbh4_1ScVtNAm63bVvGLc
 
 ###
 DELETE  http://localhost:5000/api/users/delete

@@ -1,9 +1,21 @@
 POST http://localhost:5000/api/post/create
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjI3MTE4fQ.rwd_MOJsbtwc3MzqSTwuG9E0B8qWUfpAwlb2vPOtmp8
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQyOTU2fQ.QPYAV5mYkKv2aF5YT2WqWWYbh4_1ScVtNAm63bVvGLc
 
 {
     "wforum":"5f33b470e90bb52c4c854474",
-    "title":"second post in anxiety forum",
-    "body":"lorem second ipsum"
+    "title":"asd123 post in anxiety forum",
+    "body":"lorem 222222 ipsum"
 }
+
+###
+GET http://localhost:5000/api/post/5f33ff4bb205b14204204000
+
+###
+GET http://localhost:5000/api/post/myposts/5f31583f3dd13422d8e96aa7
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQwNjUyfQ.fn6xRD-S6NwMnfqfmB_KARVgY5W0Y-x8PWOdWiFxGww
+
+###
+DELETE http://localhost:5000/api/post/delete/5f33ff268f0a2e49f0dd076a
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQwNjUyfQ.fn6xRD-S6NwMnfqfmB_KARVgY5W0Y-x8PWOdWiFxGww
+

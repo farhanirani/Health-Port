@@ -124,7 +124,7 @@ module.exports.deleteUser = async (req, res) => {
 //========================================================================================
 
 module.exports.homeUser = async (req, res) => {
-  const user = await User.findOne({ userName: req.user });
+  const user = await User.findOne({ _id: req.user });
   res.json({
     userName: user.userName,
     id: user._id,
