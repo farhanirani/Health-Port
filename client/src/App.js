@@ -9,6 +9,7 @@ import Test from "./components/Test";
 import Forum from "./components/ForumPage";
 import NavBar from "./Widget/NavBar";
 import SubForum from "./components/SubForumPage";
+import Home from "./components/HomePage";
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -47,6 +48,7 @@ export default function App() {
       <UserContext.Provider value={{ userData, setUserData }}>
         <NavBar />
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/test" component={Test} />

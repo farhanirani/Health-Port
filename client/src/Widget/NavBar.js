@@ -163,10 +163,15 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <LocalHospitalIcon />
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            style={{ marginLeft: 5 }}
+          >
             HealthPort
           </Typography>
-          <div className={classes.search}>
+          <div className={classes.search} style={{ marginLeft: "20%" }}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
