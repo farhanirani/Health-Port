@@ -1,49 +1,86 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import CommentIcon from '@material-ui/icons/Comment';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 500,
   },
-});
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
 
-export default function ImgMediaCard() {
+export default function RecipeReviewCard() {
   const classes = useStyles();
+
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title="Shrimp and Chorizo Paella"
+        subheader="Posted in r/subreddit"
+      />
+      <ButtonBase
+          focusRipple
+          key='Title'
+          className={classes.image}
+          focusVisibleClassName={classes.focusVisible}
+        >
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          This impressive paella is a perfect party dish and a fun meal to cook together with your
+          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        </Typography>
+      </CardContent>
+      </ButtonBase>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <ArrowUpwardIcon/>
+        </IconButton>
+        <IconButton aria-label="share">
+          <ArrowDownwardIcon />
+        </IconButton>
+        <IconButton aria-label="comment">
+          <CommentIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );

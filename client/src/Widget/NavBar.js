@@ -15,7 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Button from '@material-ui/core/Button';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -158,9 +158,9 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem>
       <IconButton color='inherit'>
-        <ExitToAppIcon />
+        <HowToRegIcon />
       </IconButton>
-        <p>Logout</p>
+        <p>SignUp</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -224,9 +224,9 @@ export default function PrimarySearchAppBar() {
             </IconButton>
             <Button color="inherit">Login</Button>
             <IconButton color='inherit'>
-        <ExitToAppIcon />
+        <HowToRegIcon />
       </IconButton>
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit">SignUp</Button>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
