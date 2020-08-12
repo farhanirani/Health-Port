@@ -89,11 +89,13 @@ module.exports.loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: user._id, userName: user.userName },
+      process.env.JWT_SECRET
+    );
     res.json({
       token,
       user: {
-        id: user._id,
         userName: user.userName,
       },
     });
@@ -109,7 +111,7 @@ module.exports.loginUser = async (req, res) => {
 
 module.exports.deleteUser = async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.user);
+    const deletedUser = await User.findOneAndDelete({ userName: req.user });
     res.json(deletedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -122,7 +124,7 @@ module.exports.deleteUser = async (req, res) => {
 //========================================================================================
 
 module.exports.homeUser = async (req, res) => {
-  const user = await User.findById(req.user);
+  const user = await User.findOne({ userName: req.user });
   res.json({
     userName: user.userName,
     id: user._id,
