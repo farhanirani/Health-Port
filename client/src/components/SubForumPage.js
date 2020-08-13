@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import Loader from "./Loader";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Post from "../Widget/Post";
-import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { Divider } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import CommentIcon from "@material-ui/icons/Comment";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 500,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -56,6 +88,23 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const [forumName, setForumName] = useState([]);
+  const forumId = window.location.pathname.substring(10);
+
+  useEffect(() => {
+    (async () => {
+      const postData = await axios.get(
+        "http://localhost:5000/api/forum/" + forumId
+      );
+      console.log(postData);
+      setPosts(postData.data.data);
+      setForumName(postData.data.forumName);
+      setLoading(false);
+    })();
+  }, []);
 
   return (
     <React.Fragment>
@@ -68,19 +117,19 @@ export default function Album() {
             <Grid item key="New" lg={12} md={12} sm={12} xs={12}>
               <Card className={classes.root}>
                 <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                    title="Contemplative Reptile"
-                  />
                   <CardContent>
+                    <CardMedia
+                      className={classes.media}
+                      image="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                    />
                     <Typography
                       gutterBottom
                       variant="h5"
                       component="h2"
                       classes={classes.heroContent}
                     >
-                      Lizard
+                      {forumName.title}
+                      {forumName.description}
                     </Typography>
                     <Divider />
                     <span className={classes.imageButton}>
@@ -110,14 +159,58 @@ export default function Album() {
                 </CardActionArea>
               </Card>
             </Grid>
-            {cards.map((card) => (
-              <Grid item key={card} lg={12}>
-                <Post />
+            {posts.map((post) => (
+              <Grid item key={post._id} lg={12}>
+                {/* 
+                
+                */}
+                <Card className={classes.root}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classes.avatar}>
+                        {post.authorName.charAt(0)}
+                      </Avatar>
+                    }
+                    title={post.title}
+                    subheader={"Posted by " + post.authorName}
+                  />
+                  <ButtonBase
+                    focusRipple
+                    key="Title"
+                    className={classes.image}
+                    focusVisibleClassName={classes.focusVisible}
+                    onClick={() => history.push("/post/" + post._id)}
+                  >
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {post.body}
+                      </Typography>
+                    </CardContent>
+                  </ButtonBase>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <ArrowUpwardIcon />
+                    </IconButton>
+                    <p>{post.upvotes}</p>
+                    <IconButton aria-label="share">
+                      <ArrowDownwardIcon />
+                    </IconButton>
+                    <p>{post.downvotes}</p>
+                  </CardActions>
+                </Card>
+                {/* 
+                
+                */}
               </Grid>
             ))}
           </Grid>
         </Container>
       </main>
+      <Loader loading={loading} />
     </React.Fragment>
   );
 }

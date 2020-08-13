@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import Loader from "./Loader";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import SubThread from "../Widget/SubThreadCard";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
+  root: {
+    maxWidth: 345,
+    [theme.breakpoints.up("xs")]: {
+      maxWidth: "100%",
+    },
   },
   cardGrid: {
     paddingTop: theme.spacing(10),
@@ -25,9 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
-  cardMedia: {
-    paddingTop: "56.25%", // 16:9
-  },
+
   cardContent: {
     flexGrow: 1,
   },
@@ -37,27 +39,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 export default function Album() {
   const classes = useStyles();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [forums, setForums] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const forumdata = await axios.get("http://localhost:5000/api/forum");
+      setForums(forumdata.data);
+      setLoading(false);
+    })();
+  }, []);
 
   return (
     <React.Fragment>
       <CssBaseline />
       <CssBaseline />
+
       <main>
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={3}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
-                <SubThread />
+            {forums.map((forum) => (
+              <Grid item key={forum._id} xs={12} sm={6} md={4} lg={3}>
+                {/*
+                 */}
+                <Card
+                  onClick={() => history.push("/subforum/" + forum._id)}
+                  className={classes.root}
+                >
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {forum.title}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        {forum.description}
+                      </Typography>
+                      <br></br>
+                      <Typography className={classes.pos} color="textSecondary">
+                        {forum.numberOfPosts} posts
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+
+                {/*
+                 */}
               </Grid>
             ))}
           </Grid>
         </Container>
       </main>
+
+      <Loader loading={loading} />
     </React.Fragment>
   );
 }

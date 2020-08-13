@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import axios from "axios";
+import Loader from "./Loader";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("auth-token")) {
+      history.push("/dashboard");
+    }
+    // setLoading(true);
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -87,6 +102,7 @@ export default function SignUp() {
           </Link>
         </form>
       </div>
+      <Loader loading={loading} />
     </Container>
   );
 }

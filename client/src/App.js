@@ -47,15 +47,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
-        <NavBar />
+        {/* <NavBar /> */}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/test" component={Test} />
           <Route exact path="/forum" component={Forum} />
-          <Route exact path="/forum/subforum" component={SubForum} />
-          <Route exact path="/forum/subforum/postid" component={Post} />
+          <Route path="/subforum" component={SubForum} />
+          <Route path="/post" component={Post} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>

@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import axios from "axios";
+import Loader from "./Loader";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -36,27 +37,39 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const [userName, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
 
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem("auth-token")) {
+      history.push("/dashboard");
+    }
+  }, []);
 
   const submit = async (e) => {
     e.preventDefault();
     try {
       const loginUser = { userName, password };
       // console.log(loginUser);
+      setLoading(true);
       const loginRes = await axios.post(
         "http://localhost:5000/api/users/login",
         loginUser
       );
+      setLoading(false);
+      // console.log(loginUser);
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+      history.push("/dashboard");
     } catch (err) {
+      setLoading(false);
       console.log(err.response.data.msg);
+      alert(err.response.data.msg);
     }
   };
 
@@ -111,6 +124,7 @@ export default function Login() {
           </Link>
         </form>
       </div>
+      <Loader loading={loading} />
     </Container>
   );
 }
