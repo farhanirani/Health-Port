@@ -10,6 +10,7 @@ let postSchema = mongoose.Schema({
     type: String, // users id
     required: true,
   },
+  authorName: { type: String, required: true },
   title: { type: String, required: true },
   body: { type: String, required: true },
   upvotes: { type: Number, required: true },

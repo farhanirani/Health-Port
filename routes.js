@@ -48,12 +48,32 @@ router.get("/forum/:id", Forum.getSubforum);
 
 const Post = require("./controllers/postController");
 
-// router.get("/post/:id", Post.getPost);
+router.get("/post/:id", Post.getPost);
 router.post("/post/create", auth, Post.createPost); // temporary
-// router.get("/post/delete/:id", auth, Post.deletePost);
+router.delete("/post/delete/:id", auth, Post.deletePost);
+router.get("/post/getcomments/:id", Post.getComments);
 // router.get("/post/edit/:id", auth, Post.getEditPost);
 // router.post("/post/edit/:id", auth, Post.postEditPost);
 
-// router.get("/post/myposts/:uname", auth);
+router.get("/post/myposts/:id", auth, Post.getMyPosts);
+
+// upvotes
+// downvotes
+
+//========================================================================================
+/*                                                                                      *
+ *                              Comment Routes
+ *                                                                                      */
+//========================================================================================
+
+const Comment = require("./controllers/commentController");
+
+// post id
+router.post("/comment/create/:id", auth, Comment.createComment);
+// comment id
+router.delete("/comment/delete/:id", auth, Comment.deleteComment);
+
+// upvotes
+// downvotes
 
 module.exports = router;

@@ -7,7 +7,8 @@ let commentSchema = mongoose.Schema({
     required: true,
   },
   body: { type: String, required: true },
-  author: { type: String, required: true },
+  authorid: { type: String, required: true },
+  authorname: { type: String, required: true },
   upvotes: { type: Number, required: true },
   downvotes: { type: Number, required: true },
 });
