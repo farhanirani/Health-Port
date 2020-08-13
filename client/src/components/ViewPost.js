@@ -13,6 +13,8 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Divider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import SendIcon from "@material-ui/icons/Send";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +37,24 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: red[500],
+  },
+  grap: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 5,
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  divider: {
+    height: 28,
+    margin: 4,
   },
 }));
 
@@ -81,13 +101,22 @@ export default function RecipeReviewCard() {
         <Typography gutterBottom variant="h5" component="h3">
           Comments (No.)-
         </Typography>
-        <TextField
-          id="NewComment"
-          label="Enter a comment"
-          variant="filled"
-          color="blue"
-          style={{ width: "100%", marginBottom: 5 }}
-        />
+        <Paper component="form" className={classes.grap}>
+          <TextField
+            id="NewComment"
+            label="Enter a comment"
+            variant="filled"
+            color="blue"
+            className={classes.input}
+          />
+          <IconButton
+            type="submit"
+            className={classes.iconButton}
+            aria-label="search"
+          >
+            <SendIcon />
+          </IconButton>
+        </Paper>
         <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
           <Typography gutterBottom component="h6">
             <a href="/" style={{ color: "black" }}>
