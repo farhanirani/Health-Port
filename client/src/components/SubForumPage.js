@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
@@ -20,17 +20,13 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import CommentIcon from "@material-ui/icons/Comment";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 500,
-  },
   media: {
-    height: 0,
+    height: 140,
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -76,15 +72,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
-  media: {
-    height: 140,
-  },
   root: {
     maxWidth: 500,
   },
+  pos: {
+    marginBottom: 12,
+  },
 }));
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
@@ -114,7 +108,15 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="sm">
           {/* End hero unit */}
           <Grid container spacing={3}>
-            <Grid item key="New" lg={12} md={12} sm={12} xs={12}>
+            <Grid
+              item
+              key="New"
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              style={{ width: "100%" }}
+            >
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardContent>
@@ -129,6 +131,9 @@ export default function Album() {
                       classes={classes.heroContent}
                     >
                       {forumName.title}
+                    </Typography>
+
+                    <Typography className={classes.pos} color="textSecondary">
                       {forumName.description}
                     </Typography>
                     <Divider />
@@ -160,7 +165,7 @@ export default function Album() {
               </Card>
             </Grid>
             {posts.map((post) => (
-              <Grid item key={post._id} lg={12}>
+              <Grid item key={post._id} lg={12} style={{ width: "100%" }}>
                 {/* 
                 
                 */}

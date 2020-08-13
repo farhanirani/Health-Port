@@ -12,9 +12,10 @@ import CommentIcon from "@material-ui/icons/Comment";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Divider } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 import Paper from "@material-ui/core/Paper";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,16 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     height: 28,
     margin: 4,
+  },
+  textFieldCenter: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  textField: {
+    width: "100%",
+    backgroundColor: "#fff",
+    paddingRight: 5,
+    paddingLeft: 5,
   },
 }));
 
@@ -102,12 +113,20 @@ export default function RecipeReviewCard() {
           Comments (No.)-
         </Typography>
         <Paper component="form" className={classes.grap}>
-          <TextField
-            id="NewComment"
-            label="Enter a comment"
-            variant="filled"
-            color="blue"
-            className={classes.input}
+          <Input
+            required
+            className={classes.textField}
+            variant="outlined"
+            placeholder="Enter a comment"
+            value={null}
+            onChange={null}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SendIcon />
+                </InputAdornment>
+              ),
+            }}
           />
           <IconButton
             type="submit"

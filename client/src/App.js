@@ -47,7 +47,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
-        {/* <NavBar /> */}
+        <NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
