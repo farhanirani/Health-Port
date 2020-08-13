@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../context/UserContext";
 
@@ -96,12 +96,6 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const login = () => history.push("/login");
-  const signup = () => history.push("/signup");
-  const forum = () => history.push("/forum");
-  const dashboard = () => history.push("/dashboard");
-  const home = () => history.push("/");
-
   const logout = () => {
     setUserData({
       token: undefined,
@@ -123,6 +117,27 @@ export default function PrimarySearchAppBar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const login = () => {
+    handleMenuClose();
+    history.push("/login");
+  };
+  const signup = () => {
+    handleMenuClose();
+    history.push("/signup");
+  };
+  const forum = () => {
+    handleMenuClose();
+    history.push("/forum");
+  };
+  const dashboard = () => {
+    handleMenuClose();
+    history.push("/dashboard");
+  };
+  const home = () => {
+    handleMenuClose();
+    history.push("/");
   };
 
   const menuId = "primary-search-account-menu";
