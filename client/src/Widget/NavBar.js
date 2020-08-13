@@ -264,9 +264,18 @@ export default function PrimarySearchAppBar() {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <AndroidIcon />
+              </IconButton>
               <Button color="inherit" onClick={null}>
                 ChatBot
               </Button>
+              <IconButton
+                aria-label="show 11 new notifications"
+                color="inherit"
+              >
+                <NotificationsIcon />
+              </IconButton>
               <Button color="inherit" onClick={forum}>
                 Forum
               </Button>
@@ -282,9 +291,15 @@ export default function PrimarySearchAppBar() {
                 </>
               ) : (
                 <>
+                  <IconButton color="inherit">
+                    <LockOpenIcon />
+                  </IconButton>
                   <Button color="inherit" onClick={login}>
                     Login
                   </Button>
+                  <IconButton color="inherit">
+                    <HowToRegIcon />
+                  </IconButton>
                   <Button color="inherit" onClick={signup}>
                     Sign up
                   </Button>
