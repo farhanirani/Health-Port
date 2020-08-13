@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     position: "relative",
-    height: 595,
+    height: 400,
     [theme.breakpoints.down("xs")]: {
       width: "100% !important", // Overrides inline-style
       height: 250,
@@ -92,14 +92,14 @@ export default function ButtonBases() {
       url:
         "https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=566&q=80",
       title: "ChatBot",
-      width: "50%",
+      width: "40%",
       action: chatbot,
     },
     {
       url:
         "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
       title: "Forum",
-      width: "50%",
+      width: "40%",
       action: forum,
     },
   ];
@@ -114,6 +114,7 @@ export default function ButtonBases() {
           focusVisibleClassName={classes.focusVisible}
           style={{
             width: image.width,
+            margin: "5%",
           }}
           onClick={image.action}
         >
