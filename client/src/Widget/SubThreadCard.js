@@ -11,6 +11,9 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    [theme.breakpoints.up("xs")]: {
+      maxWidth: "100%",
+    },
   },
   focusVisible: {},
 }));
@@ -26,9 +29,7 @@ export default function ImgMediaCard() {
         focusRipple
         key="Title"
         focusVisibleClassName={classes.focusVisible}
-        style={{
-          width: "345",
-        }}
+        style={{}}
         onClick={viewSub}
       >
         <CardActionArea>

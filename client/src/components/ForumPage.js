@@ -1,10 +1,9 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import SubThread from '../Widget/SubThreadCard'
-
+import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import SubThread from "../Widget/SubThreadCard";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -22,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -53,7 +52,7 @@ export default function Album() {
           <Grid container spacing={3}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
-                <SubThread/>
+                <SubThread />
               </Grid>
             ))}
           </Grid>
