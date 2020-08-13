@@ -15,6 +15,8 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import AndroidIcon from "@material-ui/icons/Android";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -82,11 +84,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const login = () => history.push("/login");
+  const signup = () => history.push("/signup");
+  const forum = () => history.push("/forum");
+  const home = () => history.push("/");
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -137,19 +145,28 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>CHATBOT</p>
       </MenuItem>
-      <MenuItem style={{ textAlign: "center", alignItems: "center" }}>
+      <MenuItem
+        style={{ textAlign: "center", alignItems: "center" }}
+        onClick={forum}
+      >
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <NotificationsIcon />
         </IconButton>
         <p>FORUM</p>
       </MenuItem>
-      <MenuItem style={{ textAlign: "center", alignItems: "center" }}>
+      <MenuItem
+        style={{ textAlign: "center", alignItems: "center" }}
+        onClick={login}
+      >
         <IconButton color="inherit">
           <LockOpenIcon />
         </IconButton>
         <p>LOGIN</p>
       </MenuItem>
-      <MenuItem style={{ textAlign: "center", alignItems: "center" }}>
+      <MenuItem
+        style={{ textAlign: "center", alignItems: "center" }}
+        onClick={signup}
+      >
         <IconButton color="inherit">
           <HowToRegIcon />
         </IconButton>
@@ -162,15 +179,17 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <LocalHospitalIcon />
-          <Typography
-            className={classes.title}
-            variant="h6"
-            noWrap
-            style={{ marginLeft: 5 }}
-          >
-            HealthPort
-          </Typography>
+          <ButtonBase focusRipple key="Logo" onClick={home}>
+            <LocalHospitalIcon />
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              style={{ marginLeft: 5 }}
+            >
+              HealthPort
+            </Typography>
+          </ButtonBase>
           <div className={classes.search} style={{ marginLeft: "20%" }}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -186,10 +205,18 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit">ChatBot</Button>
-            <Button color="inherit">Forum</Button>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">SignUp</Button>
+            <Button color="inherit" onClick={null}>
+              ChatBot
+            </Button>
+            <Button color="inherit" onClick={forum}>
+              Forum
+            </Button>
+            <Button color="inherit" onClick={login}>
+              Login
+            </Button>
+            <Button color="inherit" onClick={signup}>
+              SignUp
+            </Button>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

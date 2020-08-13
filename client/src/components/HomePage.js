@@ -2,21 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-
-const images = [
-  {
-    url:
-      "https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=566&q=80",
-    title: "ChatBot",
-    width: "50%",
-  },
-  {
-    url:
-      "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
-    title: "Forum",
-    width: "50%",
-  },
-];
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,6 +82,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonBases() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const chatbot = () => history.push("/test");
+  const forum = () => history.push("/forum");
+
+  const images = [
+    {
+      url:
+        "https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=566&q=80",
+      title: "ChatBot",
+      width: "50%",
+      action: chatbot,
+    },
+    {
+      url:
+        "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+      title: "Forum",
+      width: "50%",
+      action: forum,
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -108,6 +115,7 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
+          onClick={image.action}
         >
           <span
             className={classes.imageSrc}
