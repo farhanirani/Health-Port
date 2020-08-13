@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard() {
   const classes = useStyles();
   const history = useHistory();
-  const viewpost = () => history.push("/test");
+  const viewpost = () => history.push("/forum/subforum/postid");
 
   return (
     <Card className={classes.root}>
@@ -72,12 +72,15 @@ export default function RecipeReviewCard() {
         <IconButton aria-label="add to favorites">
           <ArrowUpwardIcon />
         </IconButton>
+        <p>N</p>
         <IconButton aria-label="share">
           <ArrowDownwardIcon />
         </IconButton>
+        <p>N</p>
         <IconButton aria-label="comment">
           <CommentIcon />
         </IconButton>
+        <p>N</p>
       </CardActions>
     </Card>
   );
