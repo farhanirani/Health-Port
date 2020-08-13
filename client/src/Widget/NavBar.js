@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import UserContext from "../context/UserContext";
+
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,11 +15,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockIcon from "@material-ui/icons/Lock";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import AndroidIcon from "@material-ui/icons/Android";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { useHistory } from "react-router-dom";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -87,6 +91,7 @@ export default function PrimarySearchAppBar() {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const { userData, setUserData } = useContext(UserContext);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -94,7 +99,18 @@ export default function PrimarySearchAppBar() {
   const login = () => history.push("/login");
   const signup = () => history.push("/signup");
   const forum = () => history.push("/forum");
+  const dashboard = () => history.push("/dashboard");
   const home = () => history.push("/");
+
+  const logout = () => {
+    setUserData({
+      token: undefined,
+      user: undefined,
+    });
+    localStorage.setItem("auth-token", "");
+    alert("Successfully logged out!");
+    history.push("/");
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -143,7 +159,7 @@ export default function PrimarySearchAppBar() {
         <IconButton aria-label="show 4 new mails" color="inherit">
           <AndroidIcon />
         </IconButton>
-        <p>CHATBOT</p>
+        <p>ChatBot</p>
       </MenuItem>
       <MenuItem
         style={{ textAlign: "center", alignItems: "center" }}
@@ -152,87 +168,130 @@ export default function PrimarySearchAppBar() {
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <NotificationsIcon />
         </IconButton>
-        <p>FORUM</p>
+        <p>Forum</p>
       </MenuItem>
-      <MenuItem
-        style={{ textAlign: "center", alignItems: "center" }}
-        onClick={login}
-      >
-        <IconButton color="inherit">
-          <LockOpenIcon />
-        </IconButton>
-        <p>LOGIN</p>
-      </MenuItem>
-      <MenuItem
-        style={{ textAlign: "center", alignItems: "center" }}
-        onClick={signup}
-      >
-        <IconButton color="inherit">
-          <HowToRegIcon />
-        </IconButton>
-        <p>SIGNUP</p>
-      </MenuItem>
+      {userData.user ? (
+        <>
+          <MenuItem
+            style={{ textAlign: "center", alignItems: "center" }}
+            onClick={dashboard}
+          >
+            <IconButton color="inherit">
+              <DashboardIcon />
+            </IconButton>
+            <p>Dashboard</p>
+          </MenuItem>
+
+          <MenuItem
+            style={{ textAlign: "center", alignItems: "center" }}
+            onClick={logout}
+          >
+            <IconButton color="inherit">
+              <LockIcon />
+            </IconButton>
+            <p>Logout</p>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem
+            style={{ textAlign: "center", alignItems: "center" }}
+            onClick={login}
+          >
+            <IconButton color="inherit">
+              <LockOpenIcon />
+            </IconButton>
+            <p>Login</p>
+          </MenuItem>
+
+          <MenuItem
+            style={{ textAlign: "center", alignItems: "center" }}
+            onClick={signup}
+          >
+            <IconButton color="inherit">
+              <HowToRegIcon />
+            </IconButton>
+            <p>Sign up</p>
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <ButtonBase focusRipple key="Logo" onClick={home}>
-            <LocalHospitalIcon />
-            <Typography
-              className={classes.title}
-              variant="h6"
-              noWrap
-              style={{ marginLeft: 5 }}
-            >
-              HealthPort
-            </Typography>
-          </ButtonBase>
-          <div className={classes.search} style={{ marginLeft: "20%" }}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+    <>
+      <div className={classes.grow}>
+        <AppBar position="static">
+          <Toolbar>
+            <ButtonBase focusRipple key="Logo" onClick={home}>
+              <LocalHospitalIcon />
+              <Typography
+                className={classes.title}
+                variant="h6"
+                noWrap
+                style={{ marginLeft: 5 }}
+              >
+                HealthPort
+              </Typography>
+            </ButtonBase>
+            <div className={classes.search} style={{ marginLeft: "15%" }}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <Button color="inherit" onClick={null}>
-              ChatBot
-            </Button>
-            <Button color="inherit" onClick={forum}>
-              Forum
-            </Button>
-            <Button color="inherit" onClick={login}>
-              Login
-            </Button>
-            <Button color="inherit" onClick={signup}>
-              SignUp
-            </Button>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <Button color="inherit" onClick={null}>
+                ChatBot
+              </Button>
+              <Button color="inherit" onClick={forum}>
+                Forum
+              </Button>
+
+              {userData.user ? (
+                <>
+                  <Button color="inherit" onClick={dashboard}>
+                    Dashboard
+                  </Button>
+                  <Button color="inherit" onClick={logout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button color="inherit" onClick={login}>
+                    Login
+                  </Button>
+                  <Button color="inherit" onClick={signup}>
+                    Sign up
+                  </Button>
+                </>
+              )}
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </div>
+    </>
   );
 }
