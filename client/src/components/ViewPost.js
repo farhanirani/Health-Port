@@ -216,6 +216,11 @@ export default function RecipeReviewCard() {
           <div key={comment._id}>
             <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
               <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {post.authorName}
+                  </Avatar>
+                }
                 action={
                   <Button color="inherit" onClick={null}>
                     Delete
