@@ -46,6 +46,7 @@ export default function Login() {
     if (localStorage.getItem("auth-token")) {
       history.push("/dashboard");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submit = async (e) => {

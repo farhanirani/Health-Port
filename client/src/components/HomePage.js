@@ -122,9 +122,13 @@ export default function ButtonBases() {
             className={classes.imageSrc}
             style={{
               backgroundImage: `url(${image.url})`,
+              borderRadius: 40,
             }}
           />
-          <span className={classes.imageBackdrop} />
+          <span
+            className={classes.imageBackdrop}
+            style={{ borderRadius: 40 }}
+          />
           <span className={classes.imageButton}>
             <Typography
               component="span"

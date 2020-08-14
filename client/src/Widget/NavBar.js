@@ -249,7 +249,7 @@ export default function PrimarySearchAppBar() {
                 HealthPort
               </Typography>
             </ButtonBase>
-            <div className={classes.search} style={{ marginLeft: "15%" }}>
+            <div className={classes.search} style={{ marginLeft: "10%" }}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -263,7 +263,11 @@ export default function PrimarySearchAppBar() {
               />
             </div>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
+            <div
+              className={classes.sectionDesktop}
+              flexWrap="nowrap"
+              alignItems="flex-end"
+            >
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <AndroidIcon />
               </IconButton>
@@ -282,9 +286,15 @@ export default function PrimarySearchAppBar() {
 
               {userData.user ? (
                 <>
+                  <IconButton color="inherit">
+                    <DashboardIcon />
+                  </IconButton>
                   <Button color="inherit" onClick={dashboard}>
                     Dashboard
                   </Button>
+                  <IconButton color="inherit">
+                    <LockIcon />
+                  </IconButton>
                   <Button color="inherit" onClick={logout}>
                     Logout
                   </Button>
@@ -301,7 +311,7 @@ export default function PrimarySearchAppBar() {
                     <HowToRegIcon />
                   </IconButton>
                   <Button color="inherit" onClick={signup}>
-                    Sign up
+                    SignUp
                   </Button>
                 </>
               )}

@@ -11,6 +11,7 @@ import NavBar from "./Widget/NavBar";
 import SubForum from "./components/SubForumPage";
 import Home from "./components/HomePage";
 import Post from "./components/ViewPost";
+import NewPost from "./components/NewPost";
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -56,6 +57,7 @@ export default function App() {
           <Route exact path="/forum" component={Forum} />
           <Route path="/subforum" component={SubForum} />
           <Route path="/post" component={Post} />
+          <Route path="/newpost" component={NewPost} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>

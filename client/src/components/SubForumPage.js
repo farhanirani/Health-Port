@@ -88,6 +88,10 @@ export default function Album() {
   const [forumName, setForumName] = useState([]);
   const forumId = window.location.pathname.substring(10);
 
+  const newpost = () => {
+    history.push("/newpost");
+  };
+
   useEffect(() => {
     (async () => {
       const postData = await axios.get(
@@ -98,6 +102,7 @@ export default function Album() {
       setForumName(postData.data.forumName);
       setLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -118,7 +123,7 @@ export default function Album() {
               style={{ width: "100%" }}
             >
               <Card className={classes.root}>
-                <CardActionArea>
+                <CardActionArea onClick={newpost}>
                   <CardContent>
                     <CardMedia
                       className={classes.media}
