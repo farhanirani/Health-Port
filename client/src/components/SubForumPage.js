@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   root: {
-    maxWidth: 500,
+    width: "100%",
   },
   pos: {
     marginBottom: 12,
@@ -115,7 +115,7 @@ export default function Album() {
       <CssBaseline />
       <CssBaseline />
       <main>
-        <Container className={classes.cardGrid} maxWidth="sm">
+        <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={3}>
             <Grid
@@ -128,25 +128,26 @@ export default function Album() {
               style={{ width: "100%" }}
             >
               <Card className={classes.root}>
-                <CardActionArea onClick={newpost}>
-                  <CardContent>
-                    <CardMedia
-                      className={classes.media}
-                      image="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                    />
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                      classes={classes.heroContent}
-                    >
-                      {forumName.title}
-                    </Typography>
+                <CardContent>
+                  <CardMedia
+                    className={classes.media}
+                    height={200}
+                    image="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                  />
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    classes={classes.heroContent}
+                  >
+                    {forumName.title}
+                  </Typography>
 
-                    <Typography className={classes.pos} color="textSecondary">
-                      {forumName.description}
-                    </Typography>
-                    <Divider />
+                  <Typography className={classes.pos} color="textSecondary">
+                    {forumName.description}
+                  </Typography>
+                  <Divider />
+                  <CardActionArea onClick={newpost}>
                     <span className={classes.imageButton}>
                       <Typography
                         component="span"
@@ -170,8 +171,8 @@ export default function Album() {
                         <span className={classes.imageMarked} />
                       </Typography>
                     </span>
-                  </CardContent>
-                </CardActionArea>
+                  </CardActionArea>
+                </CardContent>
               </Card>
             </Grid>
             {posts.map((post) => (
