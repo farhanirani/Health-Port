@@ -26,7 +26,9 @@ module.exports.homepage = async (req, res) => {
 module.exports.getSubforum = async (req, res) => {
   // res.json(req.params.id); this is the id of the forum
   try {
-    const allPostsinSubForum = await Post.find({ whichForum: req.params.id });
+    const allPostsinSubForum = await Post.find({
+      whichForum: req.params.id,
+    }).sort({ _id: -1 });
     const forumName = await Forum.findById(req.params.id);
     res.json({ forumName: forumName, data: allPostsinSubForum });
   } catch (err) {
