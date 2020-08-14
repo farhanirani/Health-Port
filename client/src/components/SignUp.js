@@ -10,7 +10,23 @@ import Link from "@material-ui/core/Link";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { green } from "@material-ui/core/colors";
+import Radio from "@material-ui/core/Radio";
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import Input from "@material-ui/core/Input";
+
+const GreenRadio = withStyles({
+  root: {
+    color: green[400],
+    "&$checked": {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,13 +52,48 @@ export default function SignUp() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
+  const [selectedValue, setSelectedValue] = React.useState("user");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
       history.push("/dashboard");
     }
-    setLoading(true);
+    // setLoading(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const state = {
+    // Initially, no file is selected
+    selectedFile: null,
+  };
+
+  // On file select (from the pop up)
+  const onFileChange = (event) => {
+    // Update the state
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  // On file upload (click the upload button)
+  const onFileUpload = () => {
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    // Details of the uploaded file
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post("api/uploadfile", formData);
+  };
 
   const classes = useStyles();
 
@@ -56,6 +107,26 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
+        <div>
+          <Radio
+            checked={selectedValue === "user"}
+            onChange={handleChange}
+            value="user"
+            label="User"
+            name="radio-button-demo"
+            inputProps={{ "aria-label": "User" }}
+          />
+          User
+          <GreenRadio
+            checked={selectedValue === "doctor"}
+            onChange={handleChange}
+            value="doctor"
+            label="Certified"
+            name="radio-button-demo"
+            inputProps={{ "aria-label": "Doctor" }}
+          />
+          Doctor
+        </div>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -87,6 +158,68 @@ export default function SignUp() {
             type="password"
             id="confirmPassword"
           />
+          {selectedValue === "doctor" ? (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="Phone number"
+                  label="Phone number"
+                  pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+                  type="number"
+                  id="Phone number"
+                  autoComplete="current-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Input
+                  required
+                  fullWidth
+                  name="Certificate"
+                  label="Certificate"
+                  type="file"
+                  id="file"
+                  autoComplete="Certificate"
+                />
+              </Grid>
+            </Grid>
+          ) : null}
           <Button
             type="submit"
             fullWidth
