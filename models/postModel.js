@@ -6,6 +6,7 @@ let postSchema = mongoose.Schema({
     type: String, //forum id
     required: true,
   },
+  forumName: { type: String, required: true },
   author: {
     type: String, // users id
     required: true,

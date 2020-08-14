@@ -2,9 +2,9 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-    "userName":"fki" ,
-    "password":"asd",
-    "confirmPassword":"asd"
+    "userName":"qwe" ,
+    "password":"qwe",
+    "confirmPassword":"qwe"
 }
 
 ###

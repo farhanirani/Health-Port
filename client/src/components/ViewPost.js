@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import axios from "axios";
+import Loader from "./Loader";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -71,6 +76,61 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RecipeReviewCard() {
   const classes = useStyles();
+  const [loading, setLoading] = useState(true);
+  const [body, setComment] = useState();
+  const [comments, setComments] = useState([]);
+  const [post, setPost] = useState([]);
+  const tokenn = localStorage.getItem("auth-token");
+  const postId = window.location.pathname.substring(6);
+
+  useEffect(() => {
+    (async () => {
+      const postData = await axios.get(
+        "http://localhost:5000/api/post/" + postId
+      );
+      // console.log(postData);
+      setPost(postData.data);
+
+      const commentData = await axios.get(
+        "http://localhost:5000/api/post/getComments/" + postId
+      );
+      // console.log(commentData);
+      setComments(commentData.data);
+
+      setLoading(false);
+    })();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const newComment = { body };
+
+      if (!tokenn) {
+        alert("Please login first");
+      } else {
+        const loginRes = await axios.post(
+          "http://localhost:5000/api/comment/create/" + postId,
+          newComment,
+          { headers: { "x-auth-token": tokenn } }
+        );
+
+        setComment("");
+        const commentData = await axios.get(
+          "http://localhost:5000/api/post/getComments/" + postId
+        );
+        // console.log(commentData);
+        setComments(commentData.data);
+      }
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err.response.data.msg);
+      alert(err.response.data.msg);
+    }
+  };
 
   return (
     <Card
@@ -80,46 +140,50 @@ export default function RecipeReviewCard() {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {post.authorName}
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="Posted in r/subreddit"
+        title={post.title}
+        subheader={"Posted by " + post.authorName + " in " + post.forumName}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {post.body}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <ArrowUpwardIcon />
         </IconButton>
-        <p>N</p>
+        <p>{post.upvotes}</p>
         <IconButton aria-label="share">
           <ArrowDownwardIcon />
         </IconButton>
-        <p>N</p>
+        <p>{post.downvotes}</p>
         <IconButton aria-label="comment">
           <CommentIcon />
         </IconButton>
-        <p>N</p>
+        <p>{comments.length}</p>
       </CardActions>
       <CardContent>
         <Divider style={{ margin: 5 }} />
         <Typography gutterBottom variant="h5" component="h3">
-          Comments (No.)-
+          Comments -
         </Typography>
-        <Paper component="form" className={classes.grap}>
+
+        <Paper
+          onSubmit={handleSubmit}
+          component="form"
+          className={classes.grap}
+        >
           <Input
             required
+            name="body"
             className={classes.textField}
             variant="outlined"
             placeholder="Enter a comment"
-            value={null}
-            onChange={null}
+            value={body}
+            onChange={(e) => setComment(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -136,76 +200,32 @@ export default function RecipeReviewCard() {
             <SendIcon />
           </IconButton>
         </Paper>
-        <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
-          <Typography gutterBottom component="h6">
-            <a href="/" style={{ color: "black" }}>
-              Lizard
-            </a>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
-          </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <ArrowUpwardIcon />
-            </IconButton>
-            <p>N</p>
-            <IconButton aria-label="share">
-              <ArrowDownwardIcon />
-            </IconButton>
-            <p>N</p>
-          </CardActions>
-        </Card>
-        <Divider style={{ margin: 5 }} />
 
-        <Card style={{ paddingLeft: 5, paddingTop: 5, marginBottom: 5 }}>
-          <Typography gutterBottom component="h6">
-            <a href="/" style={{ color: "black" }}>
-              Lizard
-            </a>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
-          </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <ArrowUpwardIcon />
-            </IconButton>
-            <p>N</p>
-            <IconButton aria-label="share">
-              <ArrowDownwardIcon />
-            </IconButton>
-            <p>N</p>
-          </CardActions>
-        </Card>
-        <Divider style={{ margin: 5 }} />
-        <Card style={{ paddingLeft: 5, paddingTop: 5, marginBottom: 5 }}>
-          <Typography gutterBottom component="h6">
-            <a href="/" style={{ color: "black" }}>
-              Lizard
-            </a>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
-          </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <ArrowUpwardIcon />
-            </IconButton>
-            <p>N</p>
-            <IconButton aria-label="share">
-              <ArrowDownwardIcon />
-            </IconButton>
-            <p>N</p>
-          </CardActions>
-        </Card>
+        {comments.map((comment) => (
+          <div key={comment._id}>
+            <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
+              <Typography gutterBottom component="h6">
+                {"Commented by " + comment.authorname}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {comment.body}
+              </Typography>
+              <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                  <ArrowUpwardIcon />
+                </IconButton>
+                <p>{comment.upvotes}</p>
+                <IconButton aria-label="share">
+                  <ArrowDownwardIcon />
+                </IconButton>
+                <p>{comment.downvotes}</p>
+              </CardActions>
+            </Card>
+            <Divider style={{ margin: 5 }} />
+          </div>
+        ))}
       </CardContent>
+      <Loader loading={loading} />
     </Card>
   );
 }

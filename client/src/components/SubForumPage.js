@@ -87,7 +87,12 @@ export default function Album() {
   const forumId = window.location.pathname.substring(10);
 
   const newpost = () => {
-    history.push("/newpost");
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      history.push("/login");
+    } else {
+      history.push("/newpost/" + forumId);
+    }
   };
 
   const style = {
