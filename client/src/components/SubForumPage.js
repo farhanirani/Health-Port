@@ -26,7 +26,6 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 
 const useStyles = makeStyles((theme) => ({
   media: {
-    height: 140,
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -59,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: "100%",
-    display: "flex",
     flexDirection: "column",
   },
   cardMedia: {
@@ -97,6 +95,12 @@ export default function Album() {
     }
   };
 
+  const style = {
+    maxHeight: 200,
+    width: "70%",
+    marginLeft: "15%",
+  };
+
   useEffect(() => {
     (async () => {
       const postData = await axios.get(
@@ -129,18 +133,21 @@ export default function Album() {
             >
               <Card className={classes.root}>
                 <CardContent>
-                  <CardMedia
-                    className={classes.media}
-                    height={200}
-                    image="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                  />
+                  <CardMedia>
+                    <img
+                      src="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                      style={style}
+                    />
+                  </CardMedia>
                   <Typography
                     gutterBottom
                     variant="h5"
                     component="h2"
                     classes={classes.heroContent}
                   >
-                    {forumName.title}
+                    <Box textAlign="center" marginTop={3}>
+                      {forumName.title}
+                    </Box>
                   </Typography>
 
                   <Typography className={classes.pos} color="textSecondary">
@@ -203,8 +210,10 @@ export default function Album() {
                         color="textSecondary"
                         component="p"
                       >
-                        {post.body.substring(0, 100)}
-                        {post.body.length <= 100 ? null : "..."}
+                        <Box textAlign="left">
+                          {post.body.substring(0, 200)}
+                          {post.body.length <= 200 ? null : "..."}
+                        </Box>
                       </Typography>
                     </CardContent>
                   </ButtonBase>
