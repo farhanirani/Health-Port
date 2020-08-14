@@ -21,6 +21,7 @@ import SendIcon from "@material-ui/icons/Send";
 import Paper from "@material-ui/core/Paper";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -143,6 +144,16 @@ export default function RecipeReviewCard() {
             {post.authorName}
           </Avatar>
         }
+        action={
+          <form>
+            <Button color="inherit" onClick={null}>
+              Edit
+            </Button>
+            <Button color="inherit" onClick={null}>
+              Delete
+            </Button>
+          </form>
+        }
         title={post.title}
         subheader={"Posted by " + post.authorName + " in " + post.forumName}
       />
@@ -204,9 +215,14 @@ export default function RecipeReviewCard() {
         {comments.map((comment) => (
           <div key={comment._id}>
             <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
-              <Typography gutterBottom component="h6">
-                {"Commented by " + comment.authorname}
-              </Typography>
+              <CardHeader
+                action={
+                  <Button color="inherit" onClick={null}>
+                    Delete
+                  </Button>
+                }
+                title={"Commented by " + comment.authorname}
+              />
               <Typography variant="body2" color="textSecondary" component="p">
                 {comment.body}
               </Typography>

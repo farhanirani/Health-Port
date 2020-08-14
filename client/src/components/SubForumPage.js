@@ -207,9 +207,14 @@ export default function Album() {
                       </Avatar>
                     }
                     action={
-                      <Button color="inherit" onClick={null}>
-                        Delete
-                      </Button>
+                      <form>
+                        <Button color="inherit" onClick={null}>
+                          Edit
+                        </Button>
+                        <Button color="inherit" onClick={null}>
+                          Delete
+                        </Button>
+                      </form>
                     }
                     title={post.title}
                     subheader={"Posted by " + post.authorName}
