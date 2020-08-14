@@ -23,6 +23,7 @@ import { red } from "@material-ui/core/colors";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -193,6 +194,11 @@ export default function Album() {
                       <Avatar aria-label="recipe" className={classes.avatar}>
                         {post.authorName.charAt(0)}
                       </Avatar>
+                    }
+                    action={
+                      <Button color="inherit" onClick={null}>
+                        Delete
+                      </Button>
                     }
                     title={post.title}
                     subheader={"Posted by " + post.authorName}
