@@ -96,9 +96,12 @@ export default function Album() {
   };
 
   const style = {
-    maxHeight: 200,
-    width: "70%",
-    marginLeft: "15%",
+    display: "block",
+    maxHeight: 250,
+    width: "auto",
+    margin: "auto",
+    marginLeft: "auto",
+    marginRight: "auto",
   };
 
   useEffect(() => {
@@ -145,13 +148,15 @@ export default function Album() {
                     component="h2"
                     classes={classes.heroContent}
                   >
-                    <Box textAlign="center" marginTop={3}>
+                    <Box textAlign="center" marginTop={1}>
                       {forumName.title}
                     </Box>
                   </Typography>
 
                   <Typography className={classes.pos} color="textSecondary">
-                    {forumName.description}
+                    <Box textAlign="center" marginTop={1}>
+                      {forumName.description}
+                    </Box>
                   </Typography>
                   <Divider />
                   <CardActionArea onClick={newpost}>
@@ -169,10 +174,16 @@ export default function Album() {
                             alignItems: "center",
                             textAlign: "center",
                             paddingTop: 10,
+                            paddingBottom: 5,
                             paddingLeft: "40%",
                           }}
                         >
-                          <AddCircleOutlineIcon />
+                          <AddCircleOutlineIcon
+                            style={{
+                              marginLeft: 20,
+                              marginRight: 10,
+                            }}
+                          />
                           Add Post
                         </Box>
                         <span className={classes.imageMarked} />
