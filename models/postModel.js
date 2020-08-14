@@ -14,8 +14,8 @@ let postSchema = mongoose.Schema({
   authorName: { type: String, required: true },
   title: { type: String, required: true },
   body: { type: String, required: true },
-  upvotes: { type: Number, required: true },
-  downvotes: { type: Number, required: true },
+  upvotes: { type: Array, required: true },
+  downvotes: { type: Array, required: true },
 });
 
 module.exports = Post = mongoose.model("post", postSchema);

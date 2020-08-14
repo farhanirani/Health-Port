@@ -10,7 +10,19 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1M
 }
 
 ###
-GET http://localhost:5000/api/post/5f3691f89f023f2ff4037e43
+GET http://localhost:5000/api/post/5f36b7cfad0cc32a58691767
+
+
+###
+POST http://localhost:5000/api/post/postUpvote/5f36b7cfad0cc32a58691767
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
+
+###
+POST http://localhost:5000/api/post/postDownvote/5f36b7cfad0cc32a58691767
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
+
+
+
 
 ###
 GET http://localhost:5000/api/post/myposts/5f3690a41ef4f52c7cce8d14

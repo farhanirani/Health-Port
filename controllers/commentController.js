@@ -19,8 +19,8 @@ module.exports.createComment = async (req, res) => {
       body: body,
       authorid: authorid,
       authorname: authorname,
-      upvotes: 0,
-      downvotes: 0,
+      upvotes: [],
+      downvotes: [],
     });
     const savedPost = await newPost.save();
     res.json(newPost);

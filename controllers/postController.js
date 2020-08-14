@@ -52,8 +52,8 @@ module.exports.createPost = async (req, res) => {
       authorName: authorName,
       title: title,
       body: body,
-      upvotes: 0,
-      downvotes: 0,
+      upvotes: [],
+      downvotes: [],
     });
     const savedPost = await newPost.save();
     const t2 = await Forum.findById(wforum);
@@ -72,6 +72,91 @@ module.exports.createPost = async (req, res) => {
  *                               Edit Post
  *                                                                                      */
 //========================================================================================
+
+//========================================================================================
+/*                                                                                      *
+ *                               Upvote Post
+ *                                                                                      */
+//========================================================================================
+
+module.exports.upvotePost = async (req, res) => {
+  try {
+    tt1 = [];
+    tt2 = [];
+    let author = req.user;
+    Post.findById(req.params.id).then(async (t2) => {
+      // console.log(t2);
+      tt1 = t2.upvotes;
+      if (tt1.includes(author)) {
+        const index = tt1.indexOf(author);
+        tt1.splice(index, 1);
+      } else {
+        tt1.push(author);
+      }
+      tt2 = t2.downvotes;
+      const index = tt2.indexOf(author);
+      if (index > -1) {
+        tt2.splice(index, 1);
+      }
+
+      console.log(tt1, tt2);
+
+      const asdasd = await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          upvotes: tt1,
+          downvotes: tt2,
+        }
+      );
+      res.json(asdasd);
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
+ *                               Downvote Post
+ *                                                                                      */
+//========================================================================================
+
+module.exports.downVote = async (req, res) => {
+  try {
+    tt1 = [];
+    tt2 = [];
+    let author = req.user;
+    Post.findById(req.params.id).then(async (t2) => {
+      // console.log(t2);
+      tt1 = t2.downvotes;
+      if (tt1.includes(author)) {
+        const index = tt1.indexOf(author);
+        tt1.splice(index, 1);
+      } else {
+        tt1.push(author);
+      }
+      tt2 = t2.upvotes;
+      const index = tt2.indexOf(author);
+      if (index > -1) {
+        tt2.splice(index, 1);
+      }
+
+      console.log(tt1, tt2);
+
+      const asdasd = await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          upvotes: tt2,
+          downvotes: tt1,
+        }
+      );
+      res.json(asdasd);
+      // console.log(asdasd);
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 //========================================================================================
 /*                                                                                      *

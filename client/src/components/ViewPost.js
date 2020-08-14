@@ -146,10 +146,10 @@ export default function RecipeReviewCard() {
         }
         action={
           <form>
-            <Button color="inherit" onClick={null}>
+            <Button color="primary" onClick={null}>
               Edit
             </Button>
-            <Button color="inherit" onClick={null}>
+            <Button color="secondary" onClick={null}>
               Delete
             </Button>
           </form>
@@ -217,7 +217,7 @@ export default function RecipeReviewCard() {
             <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
               <CardHeader
                 action={
-                  <Button color="inherit" onClick={null}>
+                  <Button color="secondary" onClick={null}>
                     Delete
                   </Button>
                 }
