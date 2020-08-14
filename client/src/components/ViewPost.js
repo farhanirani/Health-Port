@@ -100,7 +100,7 @@ export default function RecipeReviewCard() {
 
       setLoading(false);
     })();
-  }, []);
+  }, [loading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,120 +133,251 @@ export default function RecipeReviewCard() {
     }
   };
 
-  return (
-    <Card
-      className={classes.root}
-      style={{ marginLeft: "10%", marginTop: 10, marginBottom: 15 }}
-    >
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {post.authorName}
-          </Avatar>
+  const handleUpvote = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/post/postUpvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
         }
-        action={
-          <form>
-            <Button color="primary" onClick={null}>
-              Edit
-            </Button>
-            <Button color="secondary" onClick={null}>
-              Delete
-            </Button>
-          </form>
-        }
-        title={post.title}
-        subheader={"Posted by " + post.authorName + " in " + post.forumName}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {post.body}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <ArrowUpwardIcon />
-        </IconButton>
-        <p>{post.upvotes}</p>
-        <IconButton aria-label="share">
-          <ArrowDownwardIcon />
-        </IconButton>
-        <p>{post.downvotes}</p>
-        <IconButton aria-label="comment">
-          <CommentIcon />
-        </IconButton>
-        <p>{comments.length}</p>
-      </CardActions>
-      <CardContent>
-        <Divider style={{ margin: 5 }} />
-        <Typography gutterBottom variant="h5" component="h3">
-          Comments -
-        </Typography>
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
 
-        <Paper
-          onSubmit={handleSubmit}
-          component="form"
-          className={classes.grap}
-        >
-          <Input
-            required
-            name="body"
-            className={classes.textField}
-            variant="outlined"
-            placeholder="Enter a comment"
-            value={body}
-            onChange={(e) => setComment(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SendIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+  const handleDownvote = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/post/postDownvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  const handleUpvotecom = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/comment/postUpvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  const handleDownvotecom = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/comment/postDownvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  if (!loading) {
+    return (
+      <Card
+        className={classes.root}
+        style={{ marginLeft: "10%", marginTop: 10, marginBottom: 15 }}
+      >
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {post.authorName}
+            </Avatar>
+          }
+          action={
+            <form>
+              <Button color="primary" onClick={null}>
+                Edit
+              </Button>
+              <Button color="secondary" onClick={null}>
+                Delete
+              </Button>
+            </form>
+          }
+          title={post.title}
+          subheader={"Posted by " + post.authorName + " in " + post.forumName}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {post.body}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
           <IconButton
-            type="submit"
-            className={classes.iconButton}
-            aria-label="search"
+            onClick={() => {
+              handleUpvote(postId);
+            }}
+            aria-label="add to favorites"
           >
-            <SendIcon />
+            <ArrowUpwardIcon />
           </IconButton>
-        </Paper>
+          <p>{post.upvotes.length}</p>
+          <IconButton
+            onClick={() => {
+              handleDownvote(postId);
+            }}
+            aria-label="share"
+          >
+            <ArrowDownwardIcon />
+          </IconButton>
+          <p>{post.downvotes.length}</p>
+          <IconButton aria-label="comment">
+            <CommentIcon />
+          </IconButton>
+          <p>{comments.length}</p>
+        </CardActions>
+        <CardContent>
+          <Divider style={{ margin: 5 }} />
+          <Typography gutterBottom variant="h5" component="h3">
+            Comments -
+          </Typography>
 
-        {comments.map((comment) => (
-          <div key={comment._id}>
-            <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    {post.authorName}
-                  </Avatar>
-                }
-                action={
-                  <Button color="secondary" onClick={null}>
-                    Delete
-                  </Button>
-                }
-                title={"Commented by " + comment.authorname}
-              />
-              <Typography variant="body2" color="textSecondary" component="p">
-                {comment.body}
-              </Typography>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <ArrowUpwardIcon />
-                </IconButton>
-                <p>{comment.upvotes}</p>
-                <IconButton aria-label="share">
-                  <ArrowDownwardIcon />
-                </IconButton>
-                <p>{comment.downvotes}</p>
-              </CardActions>
-            </Card>
-            <Divider style={{ margin: 5 }} />
-          </div>
-        ))}
-      </CardContent>
-      <Loader loading={loading} />
-    </Card>
-  );
+          <Paper
+            onSubmit={handleSubmit}
+            component="form"
+            className={classes.grap}
+          >
+            <Input
+              required
+              name="body"
+              className={classes.textField}
+              variant="outlined"
+              placeholder="Enter a comment"
+              value={body}
+              onChange={(e) => setComment(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SendIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <IconButton
+              type="submit"
+              className={classes.iconButton}
+              aria-label="search"
+            >
+              <SendIcon />
+            </IconButton>
+          </Paper>
+
+          {comments.map((comment) => (
+            <div key={comment._id}>
+              <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      {post.authorName}
+                    </Avatar>
+                  }
+                  action={
+                    <Button color="secondary" onClick={null}>
+                      Delete
+                    </Button>
+                  }
+                  title={"Commented by " + comment.authorname}
+                />
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {comment.body}
+                </Typography>
+                <CardActions disableSpacing>
+                  <IconButton
+                    onClick={() => {
+                      handleUpvotecom(comment._id);
+                    }}
+                    aria-label="add to favorites"
+                  >
+                    <ArrowUpwardIcon />
+                  </IconButton>
+                  <p>{comment.upvotes.length}</p>
+                  <IconButton
+                    onClick={() => {
+                      handleDownvotecom(comment._id);
+                    }}
+                    aria-label="share"
+                  >
+                    <ArrowDownwardIcon />
+                  </IconButton>
+                  <p>{comment.downvotes.length}</p>
+                </CardActions>
+              </Card>
+              <Divider style={{ margin: 5 }} />
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    );
+  } else {
+    return <Loader loading={loading} />;
+  }
 }

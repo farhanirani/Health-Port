@@ -39,14 +39,13 @@ router.get("/post/:id", Post.getPost);
 router.post("/post/create", auth, Post.createPost);
 router.delete("/post/delete/:id", auth, Post.deletePost);
 router.get("/post/getcomments/:id", Post.getComments);
-router.post("/post/postUpvote/:id", auth, Post.upvotePost);
-router.post("/post/postDownvote/:id", auth, Post.downVote);
 // router.post("/post/edit/:id", auth, Post.postEditPost);
-
 router.get("/post/myposts/:id", auth, Post.getMyPosts);
 
 // upvotes
+router.post("/post/postUpvote/:id", auth, Post.upvotePost);
 // downvotes
+router.post("/post/postDownvote/:id", auth, Post.downVote);
 
 //========================================================================================
 /*                                                                                      *
@@ -62,6 +61,8 @@ router.post("/comment/create/:id", auth, Comment.createComment);
 router.delete("/comment/delete/:id", auth, Comment.deleteComment);
 
 // upvotes
+router.post("/comment/postUpvote/:id", auth, Comment.upvotePost);
 // downvotes
+router.post("/comment/postDownvote/:id", auth, Comment.downVote);
 
 module.exports = router;
