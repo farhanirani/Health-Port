@@ -4,12 +4,13 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0M
 
 {
     "wforum":"5f33b470e90bb52c4c854474",
+    "fname":"anxiety",
     "title":"321312 post in anxiety forum",
     "body":"lorem 222222 ipsum"
 }
 
 ###
-GET http://localhost:5000/api/post/5f33ff4bb205b14204204000
+GET http://localhost:5000/api/post/5f365b2837f9724190b7a5b2
 
 ###
 GET http://localhost:5000/api/post/myposts/5f31583f3dd13422d8e96aa7
@@ -32,8 +33,8 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0M
 # *************************
 # comments id is the post id
 ###
-POST http://localhost:5000/api/comment/create/5f33ff4bb205b14204204000
-x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQ3NDIxfQ.ATrg08PUF6SnhXPJisC-iJ0wsvWd_X7UZKRdupTht6s
+POST http://localhost:5000/api/comment/create/5f33ff3db205b14204203fff
+x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3NDAxODQxfQ.PSp4qR0kT8MdK9GIo91f0mWWByCzxPr378i_Yd9lG7E
 Content-Type: application/json
 
 {
@@ -42,5 +43,3 @@ Content-Type: application/json
 
 ###
 
-
-[{"_id":"5f33ff3db205b14204203fff","whichForum":"5f33b470e90bb52c4c854474","author":"5f31583f3dd13422d8e96aa7","title":"3333333333333333333333 post in anxiety forum","body":"lorem 222222 ipsum","authorName":"fki","upvotes":0,"downvotes":0,"__v":0},{"_id":"5f33ff4bb205b14204204000","whichForum":"5f33b470e90bb52c4c854474","author":"5f31583f3dd13422d8e96aa7","title":"asd123 post in anxiety forum","body":"lorem 222222 ipsum","authorName":"fki","upvotes":0,"downvotes":0,"__v":0},{"_id":"5f3412a0070f9d41906f3110","whichForum":"5f33b470e90bb52c4c854474","author":"5f31583f3dd13422d8e96aa7","authorName":"fki","title":"321312 post in anxiety forum","body":"lorem 222222 ipsum","upvotes":0,"downvotes":0,"__v":0}]

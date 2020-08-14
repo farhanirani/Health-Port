@@ -43,9 +43,10 @@ module.exports.createPost = async (req, res) => {
     const temp = await User.findById(req.user);
     let authorName = temp.userName;
     let author = req.user;
-    let { wforum, title, body } = req.body;
+    let { wforum, fname, title, body } = req.body;
     const newPost = new Post({
       whichForum: wforum,
+      forumName: fname,
       author: author,
       authorName: authorName,
       title: title,
@@ -98,7 +99,9 @@ module.exports.deletePost = async (req, res) => {
 
 module.exports.getComments = async (req, res) => {
   try {
-    const ans = await Comment.find({ commentpostID: req.params.id });
+    const ans = await Comment.find({ commentpostID: req.params.id }).sort({
+      _id: -1,
+    });
     res.json(ans);
   } catch (err) {
     res.status(500).json({ error: err.message });
