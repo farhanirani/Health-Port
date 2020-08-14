@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import axios from "axios";
 import Loader from "./Loader";
 
 import Button from "@material-ui/core/Button";
@@ -30,9 +32,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const [loading] = useState(false);
-
   const history = useHistory();
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [forumName, setForumName] = useState([]);
+  const forumId = window.location.pathname.substring(9);
+  const tokenn = localStorage.getItem("auth-token");
+
+  useEffect(() => {
+    (async () => {
+      const postData = await axios.get(
+        "http://localhost:5000/api/forum/" + forumId
+      );
+      // console.log(postData);
+      setForumName(postData.data.forumName.title);
+      setLoading(false);
+    })();
+  }, []);
+
+  const handleCreatePost = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const newPost = {
+        wforum: forumId,
+        fname: forumName,
+        title: title,
+        body: body,
+      };
+      console.log(newPost);
+      if (!tokenn) {
+        alert("Please login first");
+        setLoading(false);
+      } else {
+        const temp = await axios.post(
+          "http://localhost:5000/api/post/create",
+          newPost,
+          { headers: { "x-auth-token": tokenn } }
+        );
+        setLoading(false);
+        history.push("/post/" + temp.data._id);
+      }
+    } catch (err) {
+      setLoading(false);
+      console.log(err.response.data.msg);
+      alert(err.response.data.msg);
+    }
+  };
 
   //
 
@@ -42,21 +89,24 @@ export default function Login() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h5" component="h2">
-          New Post
+          Create new Post
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Submitting to r/Subreddit
+          Submitting to {forumName} forum
         </Typography>
-        <form onSubmit={null} className={classes.form} noValidate>
+        <form onSubmit={handleCreatePost} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             multiline
             required
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
             fullWidth
-            id="Caption"
-            label="Caption"
-            name="post caption"
+            id="title"
+            label="Post Title"
+            name="title"
             autoFocus
           />
           <TextField
@@ -65,10 +115,13 @@ export default function Login() {
             multiline
             required
             rows="9"
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
             fullWidth
-            id="Content"
-            label="Content"
-            name="post content"
+            id="body"
+            label="Post Body"
+            name="body"
           />
           <Button
             type="submit"
