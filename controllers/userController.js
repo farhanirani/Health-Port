@@ -9,35 +9,40 @@ const User = require("../models/userModel");
 //========================================================================================
 module.exports.registerUser = async (req, res) => {
   try {
-    let { userName, password, confirmPassword } = req.body;
+    let { userName, password, confirmPassword, role } = req.body;
 
     // validate
+    if (role === "user") {
+      if (!userName || !password || !confirmPassword || !role)
+        return res
+          .status(400)
+          .json({ msg: "Not all fields have been entered." });
+      if (password !== confirmPassword)
+        return res
+          .status(400)
+          .json({ msg: "Enter the same password twice for verification." });
 
-    if (!userName || !password || !confirmPassword)
-      return res.status(400).json({ msg: "Not all fields have been entered." });
-    if (password !== confirmPassword)
-      return res
-        .status(400)
-        .json({ msg: "Enter the same password twice for verification." });
+      const existingUser = await User.findOne({ userName: userName });
+      if (existingUser)
+        return res
+          .status(400)
+          .json({ msg: "An account with this username already exists." });
 
-    const existingUser = await User.findOne({ userName: userName });
-    if (existingUser)
-      return res
-        .status(400)
-        .json({ msg: "An account with this username already exists." });
+      //all parameters passed
 
-    //all parameters passed
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(password, salt);
 
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
+      const newUser = new User({
+        userName: userName,
+        password: passwordHash,
+        role: role,
+      });
 
-    const newUser = new User({
-      userName: userName,
-      password: passwordHash,
-    });
-
-    const savedUser = await newUser.save();
-    res.json(savedUser);
+      const savedUser = await newUser.save();
+      res.json(savedUser);
+    } else {
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -97,6 +102,7 @@ module.exports.loginUser = async (req, res) => {
       token,
       user: {
         userName: user.userName,
+        id: user._id,
       },
     });
   } catch (err) {
