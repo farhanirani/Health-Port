@@ -11,6 +11,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,13 @@ export default function Album() {
                   className={classes.root}
                 >
                   <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      alt="Contemplative Reptile"
+                      height="140"
+                      image="https://images.unsplash.com/photo-1597155941322-009a0dc71888?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=626&q=80"
+                      title="Contemplative Reptile"
+                    />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         {forum.title}
