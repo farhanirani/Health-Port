@@ -197,7 +197,8 @@ export default function Album() {
                         color="textSecondary"
                         component="p"
                       >
-                        {post.body}
+                        {post.body.substring(0, 100)}
+                        {post.body.length <= 100 ? null : "..."}
                       </Typography>
                     </CardContent>
                   </ButtonBase>
