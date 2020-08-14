@@ -60,7 +60,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      history.push("/dashboard");
+      history.push("/");
     }
     // setLoading(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,7 +229,12 @@ export default function SignUp() {
           >
             Sign Up
           </Button>
-          <Link href="/login" variant="body2">
+          <Link
+            onClick={() => {
+              history.push("/login");
+            }}
+            variant="body2"
+          >
             {"Already a user? Sign In"}
           </Link>
         </form>

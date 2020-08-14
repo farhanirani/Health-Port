@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
+const Forum = require("../models/forumModel");
 
 //========================================================================================
 /*                                                                                      *
@@ -55,6 +56,12 @@ module.exports.createPost = async (req, res) => {
       downvotes: 0,
     });
     const savedPost = await newPost.save();
+    const t2 = await Forum.findById(wforum);
+    // console.log(t2);
+    const updateCount = await Forum.findOneAndUpdate(
+      { _id: wforum },
+      { numberOfPosts: t2.numberOfPosts + 1 }
+    );
     res.json(savedPost);
   } catch (err) {
     res.status(500).json({ error: err.message });

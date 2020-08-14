@@ -44,9 +44,8 @@ export default function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      history.push("/dashboard");
+      history.push("/");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submit = async (e) => {
@@ -66,7 +65,7 @@ export default function Login() {
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/dashboard");
+      history.push("/");
     } catch (err) {
       setLoading(false);
       console.log(err.response.data.msg);
@@ -120,7 +119,12 @@ export default function Login() {
           >
             Login
           </Button>
-          <Link href="/signup" variant="body2">
+          <Link
+            onClick={() => {
+              history.push("/signup");
+            }}
+            variant="body2"
+          >
             {"Don't have an account? Sign Up"}
           </Link>
         </form>

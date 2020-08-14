@@ -1,40 +1,40 @@
 POST http://localhost:5000/api/post/create
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQyOTU2fQ.QPYAV5mYkKv2aF5YT2WqWWYbh4_1ScVtNAm63bVvGLc
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
 
 {
-    "wforum":"5f33b470e90bb52c4c854474",
-    "fname":"anxiety",
-    "title":"321312 post in anxiety forum",
-    "body":"lorem 222222 ipsum"
+    "wforum":"5f36911f1ef4f52c7cce8d16",
+    "fname":"Anxiety",
+    "title":"first post in anxiety forum",
+    "body":"lorem 222221312 post in anxiety21312 post in anxiety21312 post in anxiety21312 post in anxiety22 ipsum"
 }
 
 ###
-GET http://localhost:5000/api/post/5f365b2837f9724190b7a5b2
+GET http://localhost:5000/api/post/5f3691f89f023f2ff4037e43
 
 ###
-GET http://localhost:5000/api/post/myposts/5f31583f3dd13422d8e96aa7
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQwNjUyfQ.fn6xRD-S6NwMnfqfmB_KARVgY5W0Y-x8PWOdWiFxGww
+GET http://localhost:5000/api/post/myposts/5f3690a41ef4f52c7cce8d14
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
 
 ###
 # id is the post id
-GET http://localhost:5000/api/post/getComments/5f33ff4bb205b14204204000
+GET http://localhost:5000/api/post/getComments/5f3691df9f023f2ff4037e42
 
 ###
 DELETE http://localhost:5000/api/comment/delete/5f341087aaa3350b8402078c
-x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQ3NDIxfQ.ATrg08PUF6SnhXPJisC-iJ0wsvWd_X7UZKRdupTht6s
+x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
 
 
 
 ###
 DELETE http://localhost:5000/api/post/delete/5f33ff268f0a2e49f0dd076a
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3MjQwNjUyfQ.fn6xRD-S6NwMnfqfmB_KARVgY5W0Y-x8PWOdWiFxGww
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
 
 # *************************
 # comments id is the post id
 ###
-POST http://localhost:5000/api/comment/create/5f33ff3db205b14204203fff
-x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE1ODNmM2RkMTM0MjJkOGU5NmFhNyIsInVzZXJOYW1lIjoiZmtpIiwiaWF0IjoxNTk3NDAxODQxfQ.PSp4qR0kT8MdK9GIo91f0mWWByCzxPr378i_Yd9lG7E
+POST http://localhost:5000/api/comment/create/5f3691df9f023f2ff4037e42
+x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
 Content-Type: application/json
 
 {
