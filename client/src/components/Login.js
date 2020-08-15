@@ -42,11 +42,15 @@ export default function Login() {
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem("auth-token")) {
-      history.push("/");
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (localStorage.getItem("auth-token")) {
+        history.push("/");
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   const submit = async (e) => {
     e.preventDefault();

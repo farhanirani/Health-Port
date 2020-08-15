@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import Loader from "./Loader";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import { red } from "@material-ui/core/colors";
-import Button from "@material-ui/core/Button";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
@@ -79,9 +75,6 @@ export default function Album() {
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
-  const [forumName, setForumName] = useState([]);
-  const forumId = window.location.pathname.substring(10);
 
   const style = {
     display: "block",
@@ -91,19 +84,6 @@ export default function Album() {
     marginLeft: "auto",
     marginRight: "auto",
   };
-
-  useEffect(() => {
-    (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/forum/" + forumId
-      );
-      console.log(postData);
-      setPosts(postData.data.data);
-      setForumName(postData.data.forumName);
-      setLoading(false);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <React.Fragment>
