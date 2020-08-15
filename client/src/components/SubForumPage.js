@@ -86,13 +86,69 @@ export default function Album() {
   const [posts, setPosts] = useState([]);
   const [forumName, setForumName] = useState([]);
   const forumId = window.location.pathname.substring(10);
+  const tokenn = localStorage.getItem("auth-token");
 
-  const newpost = () => {
+  const newpost = async (e) => {
+    e.preventDefault();
     if (!localStorage.getItem("auth-token")) {
       alert("Please login first");
       history.push("/login");
     } else {
       history.push("/newpost/" + forumId);
+    }
+  };
+
+  const handleUpvote = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/post/postUpvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  const handleDownvote = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/post/postDownvote/" + e,
+            {},
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
     }
   };
 
@@ -116,7 +172,7 @@ export default function Album() {
       setLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loading]);
 
   return (
     <React.Fragment>
@@ -208,10 +264,10 @@ export default function Album() {
                     }
                     action={
                       <form>
-                        <Button color="inherit" onClick={null}>
+                        <Button color="primary" onClick={null}>
                           Edit
                         </Button>
-                        <Button color="inherit" onClick={null}>
+                        <Button color="secondary" onClick={null}>
                           Delete
                         </Button>
                       </form>
@@ -240,14 +296,24 @@ export default function Album() {
                     </CardContent>
                   </ButtonBase>
                   <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    <IconButton
+                      onClick={() => {
+                        handleUpvote(post._id);
+                      }}
+                      aria-label="add to favorites"
+                    >
                       <ArrowUpwardIcon />
                     </IconButton>
-                    <p>{post.upvotes}</p>
-                    <IconButton aria-label="share">
+                    <p>{post.upvotes.length}</p>
+                    <IconButton
+                      onClick={() => {
+                        handleDownvote(post._id);
+                      }}
+                      aria-label="share"
+                    >
                       <ArrowDownwardIcon />
                     </IconButton>
-                    <p>{post.downvotes}</p>
+                    <p>{post.downvotes.length}</p>
                   </CardActions>
                 </Card>
                 {/* 

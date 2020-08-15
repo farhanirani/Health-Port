@@ -9,8 +9,8 @@ let commentSchema = mongoose.Schema({
   body: { type: String, required: true },
   authorid: { type: String, required: true },
   authorname: { type: String, required: true },
-  upvotes: { type: Number, required: true },
-  downvotes: { type: Number, required: true },
+  upvotes: { type: Array, required: true },
+  downvotes: { type: Array, required: true },
 });
 
 module.exports = Comment = mongoose.model("comment", commentSchema);
