@@ -1,0 +1,20 @@
+GET http://localhost:5000/api/docs/getdoctors
+Content-Type: application/json
+
+
+###
+GET http://localhost:5000/api/docs/getdoctorsforvalidation
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzk1Yjg0Njk0NDNiMTJhNDllNGUzYyIsInVzZXJOYW1lIjoiYWRtaW4iLCJpYXQiOjE1OTc1OTQ1MDR9.9Uer9Wr_cyNgAoi3jxa_B6ht3VPtvN3X42QINkgkdpo
+
+
+###
+POST http://localhost:5000/api/docs/getdoctorsforvalidation/5f3931625e466d3bb4df3426
+Content-Type: application/json
+
+{
+    "accepted":true
+}
+
+
+###
+[{"reviewed":false,"accepted":false,"_id":"5f3931625e466d3bb4df3426","userName":"sdf","password":"$2b$10$Mvxl9ylE60OeWa8DCiwP0u8ZfmKwxrdmow4ProT1E38EUiORnr0ce","role":"doctor","firstName":"sdf","lastName":"sdf","email":"sdf","url":"577WhatsApp Image 2020-03-02 at 11.33.07 PM.jpeg","__v":0},{"reviewed":false,"accepted":false,"_id":"5f39324442708a1350011ca0","userName":"123","password":"$2b$10$d9arJExdOQDEwAoEjtbOd.1bBOJEiewZnhrTWesKqwyxIozBuqqDa","role":"doctor","firstName":"123","lastName":"123","email":"123","url":"500WhatsApp Image 2020-03-02 at 11.33.07 PM.jpeg","__v":0},{"reviewed":false,"accepted":false,"_id":"5f39327353ac7d1148d6792c","userName":"qweqweqwe","password":"$2b$10$uuO2DBJdKXtmSCjcO5gRvuz1bTBs0PQc/1FICpEFzhC7C0rUAMnb6","role":"doctor","firstName":"asd","lastName":"asd","email":"asdqweqwe","url":"370WhatsApp Image 2020-03-02 at 11.33.07 PM.jpeg","__v":0}]

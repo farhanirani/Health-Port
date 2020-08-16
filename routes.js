@@ -18,6 +18,22 @@ router.post("/users/tokenIsValid", User.tokenIsValid);
 
 //========================================================================================
 /*                                                                                      *
+ *                              Doctor Routes
+ *                                                                                      */
+//========================================================================================
+
+const Doc = require("./controllers/docController");
+
+router.get("/docs/getdoctorsforvalidation", auth, Doc.getdoctorsforvalidation);
+router.post(
+  "/docs/getdoctorsforvalidation/:id",
+  auth,
+  Doc.getdoctorsvalidation
+);
+router.get("/docs/getdoctors", Doc.getdoctors);
+
+//========================================================================================
+/*                                                                                      *
  *                              Forum Routes
  *                                                                                      */
 //========================================================================================

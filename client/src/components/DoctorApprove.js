@@ -85,9 +85,7 @@ export default function Album() {
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
-  const [forumName, setForumName] = useState([]);
-  const forumId = window.location.pathname.substring(10);
+  const [doctors, setdoctors] = useState([]);
   const tokenn = localStorage.getItem("auth-token");
 
   const style = {
@@ -101,72 +99,131 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/forum/" + forumId
+      const forumdata = await axios.get(
+        "http://localhost:5000/api/docs/getdoctorsforvalidation",
+        { headers: { "x-auth-token": tokenn } }
       );
-      console.log(postData);
-      setPosts(postData.data.data);
-      setForumName(postData.data.forumName);
+      console.log(forumdata.data);
+      setdoctors(forumdata.data);
       setLoading(false);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <CssBaseline />
-      <main>
-        <Container className={classes.cardGrid} maxWidth="sm">
-          {/* End hero unit */}
-          <Typography component="h1" variant="h5">
-            <Box align="center" marginBottom="5%">
-              Doctor's Approval List
-            </Box>
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
-              <Card className={classes.root}>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      R
-                    </Avatar>
-                  }
-                  action={
-                    <form>
-                      <IconButton>
-                        <CheckCircleOutlineIcon
-                          onClick={null}
-                          style={{ fill: "green" }}
-                        ></CheckCircleOutlineIcon>
-                      </IconButton>
-                      <IconButton>
-                        <HighlightOffIcon
-                          color="inherit"
-                          onClick={null}
-                          style={{ fill: "red" }}
-                        ></HighlightOffIcon>
-                      </IconButton>
-                    </form>
-                  }
-                  title="First Name Last Name"
-                  subheader="Email "
-                />
-                <CardMedia
-                  className={classes.media}
-                  image="https://images.unsplash.com/photo-1559588501-59a118c47e59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                  title="Paella dish"
-                />
-              </Card>
-              {/* 
-                
-                */}
+  const handleReject = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/docs/getdoctorsforvalidation/" + e,
+            { accepted: false },
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  const handleAccept = async (e) => {
+    // console.log(e);
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.post(
+            "http://localhost:5000/api/docs/getdoctorsforvalidation/" + e,
+            { accepted: true },
+            { headers: { "x-auth-token": tokenn } }
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  if (!loading) {
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <CssBaseline />
+        <main>
+          <Container className={classes.cardGrid} maxWidth="sm">
+            {/* End hero unit */}
+            <Typography component="h1" variant="h5">
+              <Box align="center" marginBottom="5%">
+                Doctor's Approval List
+              </Box>
+            </Typography>
+            <Grid container spacing={3}>
+              {doctors.map((doctor) => (
+                <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
+                  <Card className={classes.root}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          {doctor.userName}
+                        </Avatar>
+                      }
+                      action={
+                        <form>
+                          <IconButton>
+                            <CheckCircleOutlineIcon
+                              onClick={() => {
+                                handleAccept(doctor._id);
+                              }}
+                              style={{ fill: "green" }}
+                            ></CheckCircleOutlineIcon>
+                          </IconButton>
+                          <IconButton>
+                            <HighlightOffIcon
+                              color="inherit"
+                              onClick={() => {
+                                handleReject(doctor._id);
+                              }}
+                              style={{ fill: "red" }}
+                            ></HighlightOffIcon>
+                          </IconButton>
+                        </form>
+                      }
+                      title={doctor.fname + " " + doctor.lname}
+                      subheader={doctor.email}
+                    />
+                    <CardMedia
+                      className={classes.media}
+                      image="https://images.unsplash.com/photo-1559588501-59a118c47e59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                      title="Paella dish"
+                    />
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-          </Grid>
-        </Container>
-      </main>
-      <Loader loading={loading} />
-    </React.Fragment>
-  );
+          </Container>
+        </main>
+      </React.Fragment>
+    );
+  } else {
+    return <Loader loading={loading} />;
+  }
 }
