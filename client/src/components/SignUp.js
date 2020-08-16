@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { green } from "@material-ui/core/colors";
+import { green, blue } from "@material-ui/core/colors";
 import Radio from "@material-ui/core/Radio";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
@@ -20,9 +20,9 @@ import Input from "@material-ui/core/Input";
 
 const GreenRadio = withStyles({
   root: {
-    color: green[400],
+    color: blue[400],
     "&$checked": {
-      color: green[600],
+      color: blue[600],
     },
   },
   checked: {},
@@ -52,47 +52,96 @@ export default function SignUp() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  const [selectedValue, setSelectedValue] = React.useState("user");
+  const [selectedValue, setSelectedValue] = useState("user");
+  const [file, setFile] = useState([]);
+  const [username, setUsername] = useState("");
+  const [fname, setfname] = useState("");
+  const [lname, setlname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  const handleFileChange = (e) => setFile(e.target.files[0]);
+  const handleChange = (e) => setSelectedValue(e.target.value);
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handleFnameChange = (e) => setfname(e.target.value);
+  const handleLnameChange = (e) => setlname(e.target.value);
+  const handlePassChange = (e) => setPassword(e.target.value);
+  const handleEmailChange = (e) => setemail(e.target.value);
+  const handleCPassChange = (e) => setconfirmPassword(e.target.value);
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
       history.push("/");
     }
-    // setLoading(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const state = {
-    // Initially, no file is selected
-    selectedFile: null,
-  };
+  const handleSubmit = async (e) => {
+    // console.log(selectedValue);
+    e.preventDefault();
+    try {
+      if (
+        username.trim().length &&
+        confirmPassword.trim().length &&
+        password.trim().length
+      ) {
+        setLoading(true);
+        if (selectedValue === "user") {
+          console.log(selectedValue);
+          const data = {
+            userName: username,
+            password,
+            confirmPassword,
+            role: "user",
+          };
+          const reguser = await axios.post(
+            "http://localhost:5000/api/users/register",
+            data
+          );
+          setLoading(false);
+          alert("Success, now you can login");
+          history.push("/login");
+        } else {
+          if (
+            fname.trim().length &&
+            lname.trim().length &&
+            email.trim().length
+          ) {
+            const form = new FormData();
+            form.append("userName", username);
+            form.append("password", password);
+            form.append("confirmPassword", confirmPassword);
+            form.append("fname", fname);
+            form.append("lname", lname);
+            form.append("email", email);
+            form.append("certificate", file);
+            // console.log(form);
 
-  // On file select (from the pop up)
-  const onFileChange = (event) => {
-    // Update the state
-    this.setState({ selectedFile: event.target.files[0] });
-  };
+            const reguser = await axios.post(
+              "http://localhost:5000/api/users/registerdoc",
+              form,
+              { headers: { "Content-Type": "multipart/form-data" } }
+            );
 
-  // On file upload (click the upload button)
-  const onFileUpload = () => {
-    // Create an object of formData
-    const formData = new FormData();
-
-    // Update the formData object
-    formData.append(
-      "myFile",
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
-    // Details of the uploaded file
-
-    // Request made to the backend api
-    // Send formData object
-    axios.post("api/uploadfile", formData);
+            // console.log(reguser);
+            setLoading(false);
+            alert(
+              "You have successfully applied for a position of a doctor, and will be reviewed soon"
+            );
+            history.push("/");
+          } else {
+            setLoading(false);
+            return alert("Please enter all details");
+          }
+        }
+      } else {
+        setLoading(false);
+        alert("Please fill all the fields");
+      }
+    } catch (err) {
+      setLoading(false);
+      alert(err.response.data.msg);
+    }
   };
 
   const classes = useStyles();
@@ -113,7 +162,7 @@ export default function SignUp() {
             onChange={handleChange}
             value="user"
             label="User"
-            name="radio-button-demo"
+            name="user"
             inputProps={{ "aria-label": "User" }}
           />
           User
@@ -122,42 +171,57 @@ export default function SignUp() {
             onChange={handleChange}
             value="doctor"
             label="Certified"
-            name="radio-button-demo"
+            name="doctor"
             inputProps={{ "aria-label": "Doctor" }}
           />
           Doctor
         </div>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="uname"
-            label="Username"
-            name="uname"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            id="confirmPassword"
-          />
+
+        <form className={classes.form} onSubmit={handleSubmit}>
+          {selectedValue === "user" ? (
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="uname"
+                  label="Username"
+                  name="uname"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  value={password}
+                  label="Password"
+                  onChange={handlePassChange}
+                  type="password"
+                  id="password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={handleCPassChange}
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
+                />
+              </Grid>
+            </Grid>
+          ) : null}
+
           {selectedValue === "doctor" ? (
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -167,6 +231,8 @@ export default function SignUp() {
                   variant="outlined"
                   required
                   fullWidth
+                  value={fname}
+                  onChange={handleFnameChange}
                   id="firstName"
                   label="First Name"
                   autoFocus
@@ -177,7 +243,9 @@ export default function SignUp() {
                   variant="outlined"
                   required
                   fullWidth
+                  value={lname}
                   id="lastName"
+                  onChange={handleLnameChange}
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
@@ -188,10 +256,26 @@ export default function SignUp() {
                   variant="outlined"
                   required
                   fullWidth
+                  onChange={handleEmailChange}
+                  value={email}
+                  type="email"
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  onChange={handleUsernameChange}
+                  value={username}
+                  id="uname"
+                  label="Username"
+                  name="uname"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -199,27 +283,41 @@ export default function SignUp() {
                   variant="outlined"
                   required
                   fullWidth
-                  name="Phone number"
-                  label="Phone number"
-                  pattern="\d{3}[\-]\d{3}[\-]\d{4}"
-                  type="number"
-                  id="Phone number"
-                  autoComplete="current-password"
+                  value={password}
+                  name="password"
+                  onChange={handlePassChange}
+                  label="Password"
+                  type="password"
+                  id="password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <Input
+                <TextField
+                  variant="outlined"
                   required
                   fullWidth
-                  name="Certificate"
-                  label="Certificate"
-                  type="file"
-                  id="file"
-                  autoComplete="Certificate"
+                  onChange={handleCPassChange}
+                  value={confirmPassword}
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Button fullWidth color="primary">
+                  <input
+                    required
+                    type="file"
+                    name="myfile"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                </Button>
               </Grid>
             </Grid>
           ) : null}
+
           <Button
             type="submit"
             fullWidth

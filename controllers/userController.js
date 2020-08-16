@@ -9,44 +9,100 @@ const User = require("../models/userModel");
 //========================================================================================
 module.exports.registerUser = async (req, res) => {
   try {
-    let { userName, password, confirmPassword, role } = req.body;
+    let { userName, password, confirmPassword } = req.body;
 
-    // validate
-    if (role === "user") {
-      if (!userName || !password || !confirmPassword || !role)
-        return res
-          .status(400)
-          .json({ msg: "Not all fields have been entered." });
-      if (password !== confirmPassword)
-        return res
-          .status(400)
-          .json({ msg: "Enter the same password twice for verification." });
+    if (!userName || !password || !confirmPassword)
+      return res.status(400).json({ msg: "Not all fields have been entered." });
+    if (password !== confirmPassword)
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
 
-      const existingUser = await User.findOne({ userName: userName });
-      if (existingUser)
-        return res
-          .status(400)
-          .json({ msg: "An account with this username already exists." });
+    const existingUser = await User.findOne({ userName: userName });
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ msg: "An account with this username already exists." });
 
-      //all parameters passed
+    //all parameters passed
 
-      const salt = await bcrypt.genSalt();
-      const passwordHash = await bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
-      const newUser = new User({
-        userName: userName,
-        password: passwordHash,
-        role: role,
-      });
+    const newUser = new User({
+      userName: userName,
+      password: passwordHash,
+      role: "user",
+    });
 
-      const savedUser = await newUser.save();
-      res.json(savedUser);
-    } else {
-    }
+    const savedUser = await newUser.save();
+    res.json(savedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+//========================================================================================
+/*                                                                                      *
+ *                              Doc Register
+ *                                                                                      */
+//========================================================================================
+
+module.exports.registerdoc = async (req, res) => {
+  try {
+    // console.log(req.body);
+    let { userName, password, confirmPassword, fname, lname, email } = req.body;
+
+    if (
+      !userName ||
+      !password ||
+      !confirmPassword ||
+      !fname ||
+      !lname ||
+      !email
+    )
+      return res.status(400).json({ msg: "Not all fields have been entered." });
+
+    if (password !== confirmPassword)
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
+
+    const existingUser = await User.findOne({
+      $or: [{ userName: userName }, { email: email }],
+    });
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ msg: "An account with this username/email already exists." });
+
+    //all parameters passed
+
+    var x = Math.floor(Math.random() * 1000 + 1);
+    req.files.certificate.mv(
+      "doctorCertificates/" + x + req.files.certificate.name
+    );
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const newUser = new User({
+      userName: userName,
+      password: passwordHash,
+      role: "doctor",
+      firstName: fname,
+      lastName: lname,
+      email: email,
+      url: x + req.files.certificate.name,
+    });
+    // console.log(newUser);
+    const savedUser = await newUser.save();
+    // console.log(savedUser);
+    res.json(savedUser);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 //========================================================================================
 /*                                                                                      *
  *                              Check token

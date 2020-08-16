@@ -11,6 +11,7 @@ const User = require("./controllers/userController");
 
 router.get("/users/", auth, User.homeUser);
 router.post("/users/register", User.registerUser);
+router.post("/users/registerdoc", User.registerdoc);
 router.post("/users/login", User.loginUser);
 router.delete("/users/delete", auth, User.deleteUser);
 router.post("/users/tokenIsValid", User.tokenIsValid);

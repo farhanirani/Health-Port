@@ -194,10 +194,7 @@ export default function Album() {
               <Card className={classes.root}>
                 <CardContent>
                   <CardMedia>
-                    <img
-                      src="https://images.unsplash.com/photo-1597190910481-5a6e500f0fe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                      style={style}
-                    />
+                    <img src={forumName.url} style={style} />
                   </CardMedia>
                   <Typography
                     gutterBottom

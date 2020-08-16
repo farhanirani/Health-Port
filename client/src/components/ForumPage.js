@@ -74,8 +74,8 @@ export default function Album() {
                       component="img"
                       alt="Contemplative Reptile"
                       height="140"
-                      image="https://images.unsplash.com/photo-1597155941322-009a0dc71888?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=626&q=80"
-                      title="Contemplative Reptile"
+                      image={forum.url}
+                      title="fiorum picture"
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">

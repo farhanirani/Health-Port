@@ -46,6 +46,7 @@ export default function Login() {
     if (localStorage.getItem("auth-token")) {
       history.push("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   const submit = async (e) => {
@@ -87,7 +88,7 @@ export default function Login() {
           Log in
         </Typography>
 
-        <form onSubmit={submit} className={classes.form} noValidate>
+        <form onSubmit={submit} className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
