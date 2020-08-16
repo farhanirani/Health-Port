@@ -12,6 +12,8 @@ import SubForum from "./components/SubForumPage";
 import Home from "./components/HomePage";
 import Post from "./components/ViewPost";
 import NewPost from "./components/NewPost";
+import Approve from "./components/DoctorApprove";
+import Message from "./components/Messages";
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -58,6 +60,8 @@ export default function App() {
           <Route path="/subforum" component={SubForum} />
           <Route path="/post" component={Post} />
           <Route path="/newpost" component={NewPost} />
+          <Route exact path="/approve" component={Approve} />
+          <Route exact path="/messages" component={Message} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>

@@ -100,6 +100,7 @@ export default function RecipeReviewCard() {
 
       setLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const handleSubmit = async (e) => {

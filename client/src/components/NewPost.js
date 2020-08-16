@@ -49,6 +49,7 @@ export default function Login() {
       setForumName(postData.data.forumName.title);
       setLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCreatePost = async (e) => {
