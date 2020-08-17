@@ -165,10 +165,12 @@ module.exports.downVote = async (req, res) => {
 //========================================================================================
 
 module.exports.deletePost = async (req, res) => {
+  console.log(req.user);
   try {
     Post.findById(req.params.id, async (err, post) => {
-      if (err || !post || post.author != req.user) {
-        res.status(500).json("Error deleting post");
+      console.log(post.author);
+      if (err || !post || post.author !== req.user) {
+        res.status(401).json("Error deleting post");
       } else {
         postId = req.params.id;
         const deleteComments = await Comment.deleteMany({

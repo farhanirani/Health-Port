@@ -87,6 +87,7 @@ export default function Album() {
   const [forumName, setForumName] = useState([]);
   const forumId = window.location.pathname.substring(10);
   const tokenn = localStorage.getItem("auth-token");
+  const [userid, setuserid] = useState("");
 
   const newpost = async (e) => {
     e.preventDefault();
@@ -152,6 +153,32 @@ export default function Album() {
     }
   };
 
+  const handleDeletePost = async (e) => {
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.delete(
+            "http://localhost:5000/api/post/delete/" + e,
+            { headers: { "x-auth-token": tokenn } },
+            {}
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
   const style = {
     display: "block",
     maxHeight: 250,
@@ -166,9 +193,25 @@ export default function Album() {
       const postData = await axios.get(
         "http://localhost:5000/api/forum/" + forumId
       );
+
       console.log(postData);
       setPosts(postData.data.data);
       setForumName(postData.data.forumName);
+
+      // if (tokenn !== "") {
+      //   const ttt = await axios.get(
+      //     "http://localhost:5000/api/users",
+      //     {},
+      //     { headers: { "x-auth-token": tokenn } }
+      //   );
+      //   console.log("running it once");
+      //   console.log(ttt);
+      //   setuserid(ttt.id);
+      // }
+
+      // setLoading(false);
+      // console.log(userid);
+
       setLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -260,14 +303,15 @@ export default function Album() {
                       </Avatar>
                     }
                     action={
-                      <form>
-                        <Button color="primary" onClick={null}>
-                          Edit
-                        </Button>
-                        <Button color="secondary" onClick={null}>
-                          Delete
-                        </Button>
-                      </form>
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          handleDeletePost(post._id);
+                        }}
+                      >
+                        {/* {post.author === userid ? "Delete" : ""} */}
+                        Delete
+                      </Button>
                     }
                     title={post.title}
                     subheader={"Posted by " + post.authorName}
@@ -321,7 +365,7 @@ export default function Album() {
           </Grid>
         </Container>
       </main>
-      <Loader loading={loading} />
+      <Loader loading={loading} />;
     </React.Fragment>
   );
 }

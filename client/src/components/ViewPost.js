@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
   const [body, setComment] = useState();
   const [comments, setComments] = useState([]);
   const [post, setPost] = useState([]);
@@ -102,6 +103,59 @@ export default function RecipeReviewCard() {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
+
+  const handleDeletePost = async (e) => {
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.delete(
+            "http://localhost:5000/api/post/delete/" + e,
+            { headers: { "x-auth-token": tokenn } },
+            {}
+          );
+          setLoading(false);
+          history.push("/subforum/" + post.whichForum);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
+
+  const handleDeleteComment = async (e) => {
+    setLoading(true);
+    if (!localStorage.getItem("auth-token")) {
+      alert("Please login first");
+      setLoading(false);
+    } else {
+      try {
+        if (!tokenn) {
+          alert("Please login first");
+          setLoading(false);
+        } else {
+          const temp = await axios.delete(
+            "http://localhost:5000/api/comment/delete/" + e,
+            { headers: { "x-auth-token": tokenn } },
+            {}
+          );
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -256,10 +310,15 @@ export default function RecipeReviewCard() {
           }
           action={
             <form>
-              <Button color="primary" onClick={null}>
+              {/* <Button color="primary" onClick={null}>
                 Edit
-              </Button>
-              <Button color="secondary" onClick={null}>
+              </Button> */}
+              <Button
+                onClick={() => {
+                  handleDeletePost(post._id);
+                }}
+                color="secondary"
+              >
                 Delete
               </Button>
             </form>
@@ -342,7 +401,12 @@ export default function RecipeReviewCard() {
                     </Avatar>
                   }
                   action={
-                    <Button color="secondary" onClick={null}>
+                    <Button
+                      onClick={() => {
+                        handleDeleteComment(comment._id);
+                      }}
+                      color="secondary"
+                    >
                       Delete
                     </Button>
                   }

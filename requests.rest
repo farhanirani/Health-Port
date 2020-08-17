@@ -65,3 +65,7 @@ Content-Type: application/json
 GET http://localhost:5000/api/doctors/
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
+
+
+
+{"userName":"qwe","id":"5f3690a41ef4f52c7cce8d14"}
