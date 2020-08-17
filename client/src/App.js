@@ -15,6 +15,7 @@ import NewPost from "./components/NewPost";
 import Approve from "./components/DoctorApprove";
 import Message from "./components/Messages";
 import Chat from "./components/Chat";
+import Chatbot from "./components/Chatbot";
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/newpost" component={NewPost} />
           <Route exact path="/approve" component={Approve} />
           <Route exact path="/messages" component={Message} />
+          <Route exact path="/chatbot" component={Chatbot} />
           <Route path="/messages/chat" component={Chat} />
         </Switch>
       </UserContext.Provider>

@@ -9,6 +9,8 @@ const auth = require("./middleware/auth");
 
 const User = require("./controllers/userController");
 
+router.post("/chatbot/send", User.chatbot);
+
 router.get("/users/", auth, User.homeUser);
 router.post("/users/register", User.registerUser);
 router.post("/users/registerdoc", User.registerdoc);
