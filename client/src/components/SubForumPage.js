@@ -309,6 +309,7 @@ export default function Album() {
                     }
                     action={
                       <Button
+                        color="secondary"
                         onClick={() => {
                           handleDeletePost(post._id);
                         }}

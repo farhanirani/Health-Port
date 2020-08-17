@@ -21,6 +21,7 @@ import AndroidIcon from "@material-ui/icons/Android";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import ChatIcon from "@material-ui/icons/Chat";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -197,9 +198,9 @@ export default function PrimarySearchAppBar() {
             onClick={dashboard}
           >
             <IconButton color="inherit">
-              <DashboardIcon />
+              <ChatIcon />
             </IconButton>
-            <p>Dashboard</p>
+            <p>Messages</p>
           </MenuItem>
 
           <MenuItem
@@ -292,10 +293,10 @@ export default function PrimarySearchAppBar() {
               {userData.user ? (
                 <>
                   <IconButton color="inherit">
-                    <DashboardIcon />
+                    <ChatIcon />
                   </IconButton>
                   <ButtonBase color="inherit" onClick={dashboard}>
-                    <Box>DashBoard</Box>
+                    <Box>Messages</Box>
                   </ButtonBase>
                   <IconButton color="inherit">
                     <LockIcon />
