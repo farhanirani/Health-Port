@@ -21,6 +21,7 @@ import AndroidIcon from "@material-ui/icons/Android";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -138,6 +139,10 @@ export default function PrimarySearchAppBar() {
   const home = () => {
     handleMenuClose();
     history.push("/");
+  };
+  const chatbot = () => {
+    handleMenuClose();
+    history.push("/chatbot");
   };
 
   const menuId = "primary-search-account-menu";
@@ -271,48 +276,48 @@ export default function PrimarySearchAppBar() {
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <AndroidIcon />
               </IconButton>
-              <Button color="inherit" onClick={null}>
-                ChatBot
-              </Button>
+              <ButtonBase color="inherit" onClick={chatbot}>
+                <Box>ChatBot</Box>
+              </ButtonBase>
               <IconButton
                 aria-label="show 11 new notifications"
                 color="inherit"
               >
                 <NotificationsIcon />
               </IconButton>
-              <Button color="inherit" onClick={forum}>
-                Forum
-              </Button>
+              <ButtonBase color="inherit" onClick={forum}>
+                <Box>Forum</Box>
+              </ButtonBase>
 
               {userData.user ? (
                 <>
                   <IconButton color="inherit">
                     <DashboardIcon />
                   </IconButton>
-                  <Button color="inherit" onClick={dashboard}>
-                    Dashboard
-                  </Button>
+                  <ButtonBase color="inherit" onClick={dashboard}>
+                    <Box>DashBoard</Box>
+                  </ButtonBase>
                   <IconButton color="inherit">
                     <LockIcon />
                   </IconButton>
-                  <Button color="inherit" onClick={logout}>
-                    Logout
-                  </Button>
+                  <ButtonBase color="inherit" onClick={logout}>
+                    <Box>Logout</Box>
+                  </ButtonBase>
                 </>
               ) : (
                 <>
                   <IconButton color="inherit">
                     <LockOpenIcon />
                   </IconButton>
-                  <Button color="inherit" onClick={login}>
-                    Login
-                  </Button>
+                  <ButtonBase color="inherit" onClick={login}>
+                    <Box>Login</Box>
+                  </ButtonBase>
                   <IconButton color="inherit">
                     <HowToRegIcon />
                   </IconButton>
-                  <Button color="inherit" onClick={signup}>
-                    SignUp
-                  </Button>
+                  <ButtonBase color="inherit" onClick={signup}>
+                    <Box>Signup</Box>
+                  </ButtonBase>
                 </>
               )}
             </div>
