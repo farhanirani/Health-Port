@@ -28,11 +28,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
   },
   chatCont: {
-    top: 20,
     bottom: 95,
     width: "100%",
     overflowY: "scroll",
-    position: "fixed",
   },
   botChatCont: {
     width: "100%",
