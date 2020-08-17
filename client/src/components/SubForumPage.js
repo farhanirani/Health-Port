@@ -77,17 +77,34 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  bg: {
+    backgroundColor: "#3d4ad9",
+    color: "white",
+  },
 }));
 
 export default function Album() {
+  const tokenn = localStorage.getItem("auth-token");
+  const [userid, setuserid] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const ttt = await axios.get("http://localhost:5000/api/users", {
+        headers: { "x-auth-token": tokenn },
+      });
+      console.log("running it once");
+      console.log(ttt.data.id);
+      setuserid(ttt.data.id);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [forumName, setForumName] = useState([]);
   const forumId = window.location.pathname.substring(10);
-  const tokenn = localStorage.getItem("auth-token");
-  const [userid, setuserid] = useState("");
 
   const newpost = async (e) => {
     e.preventDefault();
@@ -194,23 +211,9 @@ export default function Album() {
         "http://localhost:5000/api/forum/" + forumId
       );
 
-      console.log(postData);
+      // console.log(postData);
       setPosts(postData.data.data);
       setForumName(postData.data.forumName);
-
-      // if (tokenn !== "") {
-      //   const ttt = await axios.get(
-      //     "http://localhost:5000/api/users",
-      //     {},
-      //     { headers: { "x-auth-token": tokenn } }
-      //   );
-      //   console.log("running it once");
-      //   console.log(ttt);
-      //   setuserid(ttt.id);
-      // }
-
-      // setLoading(false);
-      // console.log(userid);
 
       setLoading(false);
     })();
@@ -295,7 +298,9 @@ export default function Album() {
                 {/* 
                 
                 */}
-                <Card className={classes.root}>
+                <Card
+                  className={post.authorrole === "doctor" ? classes.bg : ""}
+                >
                   <CardHeader
                     avatar={
                       <Avatar aria-label="recipe" className={classes.avatar}>
@@ -304,13 +309,11 @@ export default function Album() {
                     }
                     action={
                       <Button
-                        color="secondary"
                         onClick={() => {
                           handleDeletePost(post._id);
                         }}
                       >
-                        {/* {post.author === userid ? "Delete" : ""} */}
-                        Delete
+                        {post.author === userid ? "Delete" : ""}
                       </Button>
                     }
                     title={post.title}
@@ -324,11 +327,7 @@ export default function Album() {
                     onClick={() => history.push("/post/" + post._id)}
                   >
                     <CardContent>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
+                      <Typography variant="body2" component="p">
                         <Box textAlign="left">
                           {post.body.substring(0, 200)}
                           {post.body.length <= 200 ? null : "..."}

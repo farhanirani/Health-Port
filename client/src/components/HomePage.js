@@ -84,7 +84,7 @@ export default function ButtonBases() {
   const classes = useStyles();
   const history = useHistory();
 
-  const chatbot = () => history.push("/test");
+  const chatbot = () => history.push("/chatbot");
   const forum = () => history.push("/forum");
 
   const images = [

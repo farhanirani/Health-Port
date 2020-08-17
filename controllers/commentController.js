@@ -10,6 +10,7 @@ module.exports.createComment = async (req, res) => {
   try {
     // console.log(req.user);
     temp = await User.findById(req.user);
+    console.log(temp);
     let authorname = temp.userName;
     let authorid = req.user;
     let commentpostID = req.params.id;
@@ -19,6 +20,7 @@ module.exports.createComment = async (req, res) => {
       body: body,
       authorid: authorid,
       authorname: authorname,
+      authorrole: temp.role,
       upvotes: [],
       downvotes: [],
     });

@@ -173,7 +173,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem
-        onClick={null}
+        onClick={chatbot}
         style={{ textAlign: "center", alignItems: "center" }}
       >
         <IconButton aria-label="show 4 new mails" color="inherit">

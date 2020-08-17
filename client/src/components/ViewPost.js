@@ -22,6 +22,7 @@ import Paper from "@material-ui/core/Paper";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
+import { palette } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 5,
     paddingLeft: 5,
   },
+  bg: {
+    backgroundColor: "#3d4ad9",
+    color: "white",
+  },
 }));
 
 export default function RecipeReviewCard() {
@@ -84,6 +89,19 @@ export default function RecipeReviewCard() {
   const [post, setPost] = useState([]);
   const tokenn = localStorage.getItem("auth-token");
   const postId = window.location.pathname.substring(6);
+  const [userid, setuserid] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const ttt = await axios.get("http://localhost:5000/api/users", {
+        headers: { "x-auth-token": tokenn },
+      });
+      console.log("running it once");
+      console.log(ttt.data.id);
+      setuserid(ttt.data.id);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -305,7 +323,7 @@ export default function RecipeReviewCard() {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {post.authorName}
+              {post.authorName.charAt(0)}
             </Avatar>
           }
           action={
@@ -319,7 +337,7 @@ export default function RecipeReviewCard() {
                 }}
                 color="secondary"
               >
-                Delete
+                {post.author === userid ? "Delete" : ""}
               </Button>
             </form>
           }
@@ -393,11 +411,14 @@ export default function RecipeReviewCard() {
 
           {comments.map((comment) => (
             <div key={comment._id}>
-              <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
+              <Card
+                className={comment.authorrole === "doctor" ? classes.bg : ""}
+                style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}
+              >
                 <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                      {post.authorName}
+                      {comment.authorname.charAt(0)}
                     </Avatar>
                   }
                   action={
@@ -405,14 +426,13 @@ export default function RecipeReviewCard() {
                       onClick={() => {
                         handleDeleteComment(comment._id);
                       }}
-                      color="secondary"
                     >
-                      Delete
+                      {comment.authorid === userid ? "Delete" : ""}
                     </Button>
                   }
                   title={"Commented by " + comment.authorname}
                 />
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body2" component="p">
                   {comment.body}
                 </Typography>
                 <CardActions disableSpacing>

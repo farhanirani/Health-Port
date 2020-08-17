@@ -30,7 +30,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1M
 
 ###
 # id is the post id
-GET http://localhost:5000/api/post/getComments/5f3691df9f023f2ff4037e42
+GET http://localhost:5000/api/post/getComments/5f3aa6abc135d21c3c3fdc0b
 
 ###
 DELETE http://localhost:5000/api/comment/delete/5f341087aaa3350b8402078c
@@ -39,7 +39,7 @@ x-auth-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1
 
 
 ###
-DELETE http://localhost:5000/api/post/delete/5f36b7cfad0cc32a58691767
+DELETE http://localhost:5000/api/post/delete/5f3a5b4a1703ca22f89aa78d
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NjQxMjI4fQ.Jka3Fzsb58JF_qM0KDb4ArrI97HSIs-ExWT3oGrz_5s
 
 # *************************

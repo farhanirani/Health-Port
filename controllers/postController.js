@@ -50,6 +50,7 @@ module.exports.createPost = async (req, res) => {
       forumName: fname,
       author: author,
       authorName: authorName,
+      authorrole: temp.role,
       title: title,
       body: body,
       upvotes: [],
@@ -168,7 +169,7 @@ module.exports.deletePost = async (req, res) => {
   console.log(req.user);
   try {
     Post.findById(req.params.id, async (err, post) => {
-      console.log(post.author);
+      // console.log(post);
       if (err || !post || post.author !== req.user) {
         res.status(401).json("Error deleting post");
       } else {
@@ -176,6 +177,14 @@ module.exports.deletePost = async (req, res) => {
         const deleteComments = await Comment.deleteMany({
           commentpostID: postId,
         });
+
+        const t2 = await Forum.findById(post.whichForum);
+        // console.log(t2);
+        const updateCount = await Forum.findOneAndUpdate(
+          { _id: post.whichForum },
+          { numberOfPosts: t2.numberOfPosts - 1 }
+        );
+
         const delPost = await Post.findOneAndDelete({ _id: postId });
         res.json(delPost);
       }

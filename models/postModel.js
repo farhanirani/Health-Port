@@ -12,6 +12,7 @@ let postSchema = mongoose.Schema({
     required: true,
   },
   authorName: { type: String, required: true },
+  authorrole: { type: String, required: true },
   title: { type: String, required: true },
   body: { type: String, required: true },
   upvotes: { type: Array, required: true },
