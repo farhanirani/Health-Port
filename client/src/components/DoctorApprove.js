@@ -212,7 +212,7 @@ export default function Album() {
                           </IconButton>
                         </form>
                       }
-                      title={doctor.fname + " " + doctor.lname}
+                      title={doctor.firstName + " " + doctor.lastName}
                       subheader={doctor.email}
                     />
                   </Card>

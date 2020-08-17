@@ -1,0 +1,16 @@
+GET http://localhost:5000/api/messages/5f3931625e466d3bb4df3426
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
+
+
+###
+POST http://localhost:5000/api/messages/add/5f3931625e466d3bb4df3426
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzY5MGE0MWVmNGY1MmM3Y2NlOGQxNCIsInVzZXJOYW1lIjoicXdlIiwiaWF0IjoxNTk3NDExNTIyfQ.-YEAdEi1mycOZeJ8ECOzXBfgFak2d_d8ZV-NWegyCts
+
+{
+    "body":"this asasdasd the first message"
+}
+
+
+###
+[{"reviewed":true,"accepted":true,"_id":"5f3931625e466d3bb4df3426","userName":"sdf","password":"$2b$10$Mvxl9ylE60OeWa8DCiwP0u8ZfmKwxrdmow4ProT1E38EUiORnr0ce","role":"doctor","firstName":"sdf","lastName":"sdf","email":"sdf","url":"577WhatsApp Image 2020-03-02 at 11.33.07 PM.jpeg","__v":0},{"reviewed":true,"accepted":true,"_id":"5f39324442708a1350011ca0","userName":"123","password":"$2b$10$d9arJExdOQDEwAoEjtbOd.1bBOJEiewZnhrTWesKqwyxIozBuqqDa","role":"doctor","firstName":"123","lastName":"123","email":"123","url":"500WhatsApp Image 2020-03-02 at 11.33.07 PM.jpeg","__v":0}]

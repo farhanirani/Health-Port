@@ -86,6 +86,7 @@ export default function Album() {
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [user, setuser] = useState("");
   const [posts, setPosts] = useState([]);
   const [forumName, setForumName] = useState([]);
   const forumId = window.location.pathname.substring(10);
@@ -100,72 +101,120 @@ export default function Album() {
     marginRight: "auto",
   };
 
+  const gotohischat = async (e) => {
+    history.push("/messages/chat/" + e);
+  };
+
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/forum/" + forumId
-      );
-      console.log(postData);
-      setPosts(postData.data.data);
-      setForumName(postData.data.forumName);
-      setLoading(false);
+      const userrr = await axios.get("http://localhost:5000/api/users", {
+        headers: { "x-auth-token": tokenn },
+      });
+      setuser(userrr.data.role);
+      if (userrr.data.role === "doctor") {
+        const postData = await axios.get(
+          "http://localhost:5000/api/docs/getusers4doc",
+          {
+            headers: { "x-auth-token": tokenn },
+          }
+        );
+        console.log(postData.data);
+        setPosts(postData.data);
+        setLoading(false);
+      } else {
+        const postData = await axios.get(
+          "http://localhost:5000/api/docs/getdoctors"
+        );
+        console.log(postData.data);
+        setPosts(postData.data);
+        setLoading(false);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <CssBaseline />
-      <main>
-        <Container className={classes.cardGrid} maxWidth="sm">
-          {/* End hero unit */}
-          <Box
-            align="center"
-            style={{
-              borderBottom: "1px solid rgb(200,200,200)",
-            }}
-          >
-            <TextField
-              variant="outlined"
-              fullWidth
-              size="small"
-              type="text"
-              id="search"
-              name="search"
-              placeholder="Search"
-              style={{
-                backgroundColor: "rgb(250, 250, 250)",
-                padding: "10px",
-              }}
-              onSubmit={null}
-            />
-          </Box>
-          <Grid container>
-            <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
-              <Card
-                className={classes.root}
-                style={{
-                  borderBottom: "1px solid rgb(200,200,200)",
-                }}
-              >
-                <CardActionArea>
-                  <CardHeader
-                    avatar={
-                      <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-                      </Avatar>
-                    }
-                    title="UserName"
-                    subheader="Last message from faki"
-                  />
-                </CardActionArea>
-              </Card>
+  if (user === "user") {
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <CssBaseline />
+        <main>
+          <Container className={classes.cardGrid} maxWidth="sm">
+            <Grid container>
+              {posts.map((post) => (
+                <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
+                  <Card
+                    onClick={() => {
+                      gotohischat(post._id);
+                    }}
+                    className={classes.root}
+                    style={{
+                      borderBottom: "1px solid rgb(200,200,200)",
+                    }}
+                  >
+                    <CardActionArea>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            aria-label="recipe"
+                            className={classes.avatar}
+                          >
+                            {post.userName}
+                          </Avatar>
+                        }
+                        title={post.firstName + " " + post.lastName}
+                        subheader={"message : " + post.userName}
+                      />
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-          </Grid>
-        </Container>
-      </main>
-      <Loader loading={loading} />
-    </React.Fragment>
-  );
+          </Container>
+        </main>
+        <Loader loading={loading} />
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <CssBaseline />
+        <main>
+          <Container className={classes.cardGrid} maxWidth="sm">
+            <Grid container>
+              {posts.map((post) => (
+                <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
+                  <Card
+                    onClick={() => {
+                      gotohischat(post.user);
+                    }}
+                    className={classes.root}
+                    style={{
+                      borderBottom: "1px solid rgb(200,200,200)",
+                    }}
+                  >
+                    <CardActionArea>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            aria-label="recipe"
+                            className={classes.avatar}
+                          >
+                            {post.userName}
+                          </Avatar>
+                        }
+                        title={post.userName}
+                      />
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </main>
+        <Loader loading={loading} />
+      </React.Fragment>
+    );
+  }
 }

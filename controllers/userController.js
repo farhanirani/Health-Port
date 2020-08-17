@@ -190,5 +190,6 @@ module.exports.homeUser = async (req, res) => {
   res.json({
     userName: user.userName,
     id: user._id,
+    role: user.role,
   });
 };

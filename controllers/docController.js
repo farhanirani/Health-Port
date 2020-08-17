@@ -58,3 +58,14 @@ module.exports.getdoctors = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+const USERDOC = require("../models/userDocConnection");
+
+module.exports.getdocchats = async (req, res) => {
+  try {
+    const ans = await USERDOC.find({ doc: req.user });
+    res.json(ans);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

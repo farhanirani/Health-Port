@@ -18,6 +18,16 @@ router.post("/users/tokenIsValid", User.tokenIsValid);
 
 //========================================================================================
 /*                                                                                      *
+ *                              Message Routes
+ *                                                                                      */
+//========================================================================================
+const Message = require("./controllers/messageController");
+
+router.get("/messages/:iddoc", auth, Message.getChat);
+router.post("/messages/add/:id", auth, Message.addMessageToChat);
+
+//========================================================================================
+/*                                                                                      *
  *                              Doctor Routes
  *                                                                                      */
 //========================================================================================
@@ -31,6 +41,7 @@ router.post(
   Doc.getdoctorsvalidation
 );
 router.get("/docs/getdoctors", Doc.getdoctors);
+router.get("/docs/getusers4doc", auth, Doc.getdocchats);
 
 //========================================================================================
 /*                                                                                      *

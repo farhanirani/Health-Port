@@ -133,7 +133,7 @@ export default function PrimarySearchAppBar() {
   };
   const dashboard = () => {
     handleMenuClose();
-    history.push("/dashboard");
+    history.push("/messages");
   };
   const home = () => {
     handleMenuClose();
