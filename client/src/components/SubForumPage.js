@@ -298,12 +298,17 @@ export default function Album() {
                 {/* 
                 
                 */}
-                <Card
-                  className={post.authorrole === "doctor" ? classes.bg : ""}
-                >
+                <Card>
                   <CardHeader
                     avatar={
-                      <Avatar aria-label="recipe" className={classes.avatar}>
+                      <Avatar
+                        aria-label="recipe"
+                        className={
+                          post.authorrole === "doctor"
+                            ? classes.bg
+                            : classes.avatar
+                        }
+                      >
                         {post.authorName.charAt(0)}
                       </Avatar>
                     }

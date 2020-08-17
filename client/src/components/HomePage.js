@@ -138,6 +138,7 @@ export default function ButtonBases() {
             >
               {image.title}
               <span className={classes.imageMarked} />
+              <Typography>Enter Content Here</Typography>
             </Typography>
           </span>
         </ButtonBase>

@@ -322,7 +322,12 @@ export default function RecipeReviewCard() {
       >
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar
+              aria-label="recipe"
+              className={
+                post.authorrole === "doctor" ? classes.bg : classes.avatar
+              }
+            >
               {post.authorName.charAt(0)}
             </Avatar>
           }
@@ -411,13 +416,17 @@ export default function RecipeReviewCard() {
 
           {comments.map((comment) => (
             <div key={comment._id}>
-              <Card
-                className={comment.authorrole === "doctor" ? classes.bg : ""}
-                style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}
-              >
+              <Card style={{ paddingLeft: 6, paddingTop: 5, marginBottom: 5 }}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
+                    <Avatar
+                      aria-label="recipe"
+                      className={
+                        comment.authorrole === "doctor"
+                          ? classes.bg
+                          : classes.avatar
+                      }
+                    >
                       {comment.authorname.charAt(0)}
                     </Avatar>
                   }
