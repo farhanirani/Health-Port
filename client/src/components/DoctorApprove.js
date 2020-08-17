@@ -188,6 +188,11 @@ export default function Album() {
                       }
                       action={
                         <form>
+                          <Box>
+                            <a href="/" color="black">
+                              Verify Certificate
+                            </a>
+                          </Box>
                           <IconButton>
                             <CheckCircleOutlineIcon
                               onClick={() => {
@@ -209,11 +214,6 @@ export default function Album() {
                       }
                       title={doctor.fname + " " + doctor.lname}
                       subheader={doctor.email}
-                    />
-                    <CardMedia
-                      className={classes.media}
-                      image="https://images.unsplash.com/photo-1559588501-59a118c47e59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                      title="Paella dish"
                     />
                   </Card>
                 </Grid>
