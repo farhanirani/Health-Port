@@ -22,7 +22,7 @@ module.exports.chatbot = async (req, res) => {
  * @param {string} projectId The project to be used
  */
 
-async function runSample(msg, projectId = "simplechatbot-brts") {
+async function runSample(msg, projectId = "doctorbot-nqqvdw") {
   // A unique identifier for the given session
   const sessionId = uuid.v4();
 

@@ -198,7 +198,7 @@ export default function Album() {
 
   const style = {
     display: "block",
-    maxHeight: 250,
+    maxHeight: 200,
     width: "auto",
     margin: "auto",
     marginLeft: "auto",
