@@ -432,6 +432,7 @@ export default function RecipeReviewCard() {
                   }
                   action={
                     <Button
+                      color="secondary"
                       onClick={() => {
                         handleDeleteComment(comment._id);
                       }}
