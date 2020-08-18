@@ -4,7 +4,7 @@
 
 ### Instructions to install
 
-open terminal in this folder directory
+open a terminal in this folder directory
 
 > npm i
 

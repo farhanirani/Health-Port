@@ -255,7 +255,7 @@ export default function PrimarySearchAppBar() {
                 HealthPort
               </Typography>
             </ButtonBase>
-            <div className={classes.search} style={{ marginLeft: "10%" }}>
+            {/* <div className={classes.search} style={{ marginLeft: "10%" }}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -267,7 +267,7 @@ export default function PrimarySearchAppBar() {
                 }}
                 inputProps={{ "aria-label": "search" }}
               />
-            </div>
+            </div> */}
             <div className={classes.grow} />
             <div
               className={classes.sectionDesktop}
