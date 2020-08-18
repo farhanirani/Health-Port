@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
       "& $imageMarked": {
         opacity: 0,
       },
-      "& $imageTitle": {
-        border: "4px solid currentColor",
-      },
     },
   },
   focusVisible: {},
@@ -92,6 +89,8 @@ export default function ButtonBases() {
       url:
         "https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=566&q=80",
       title: "ChatBot",
+      context:
+        "ChatBot to try to help you figure out which disease you might have based on the symptoms",
       width: "40%",
       action: chatbot,
     },
@@ -99,6 +98,8 @@ export default function ButtonBases() {
       url:
         "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
       title: "Forum",
+      context:
+        "A safe place to discuss and chat anonymously with others who can help and guide you",
       width: "40%",
       action: forum,
     },
@@ -132,13 +133,13 @@ export default function ButtonBases() {
           <span className={classes.imageButton}>
             <Typography
               component="span"
-              variant="subtitle1"
+              variant="h4"
               color="inherit"
               className={classes.imageTitle}
             >
               {image.title}
               <span className={classes.imageMarked} />
-              <Typography>Enter Content Here</Typography>
+              <Typography>{image.context}</Typography>
             </Typography>
           </span>
         </ButtonBase>
