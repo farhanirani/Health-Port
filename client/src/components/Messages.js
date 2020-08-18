@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
+import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { red } from "@material-ui/core/colors";
 
@@ -126,6 +127,13 @@ export default function Album() {
         <main>
           <Container className={classes.cardGrid} maxWidth="sm">
             <Grid container>
+              <Typography
+                style={{ marginLeft: 20, paddingBottom: 30 }}
+                variant="h6"
+                color="inherit"
+              >
+                All the contacts you can message
+              </Typography>
               {posts.map((post) => (
                 <Grid item key="hellow" lg={12} style={{ width: "100%" }}>
                   <Card
@@ -144,7 +152,7 @@ export default function Album() {
                             aria-label="recipe"
                             className={classes.avatar}
                           >
-                            {post.userName}
+                            {post.userName.charAt(0)}
                           </Avatar>
                         }
                         title={post.firstName + " " + post.lastName}
@@ -186,7 +194,7 @@ export default function Album() {
                             aria-label="recipe"
                             className={classes.avatar}
                           >
-                            {post.userName}
+                            {post.userName.charAt(0)}
                           </Avatar>
                         }
                         title={post.userName}

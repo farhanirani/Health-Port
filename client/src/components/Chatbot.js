@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     position: "fixed",
-    bottom: 20,
-    width: "90%",
+    bottom: 45,
+    width: "80%",
     paddingRight: 5,
     paddingLeft: 5,
   },

@@ -10,7 +10,7 @@ const { all } = require("../routes");
 
 module.exports.homepage = async (req, res) => {
   try {
-    const allForums = await Forum.find({});
+    const allForums = await Forum.find({}).sort({ _id: -1 });
     res.json(allForums);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -41,18 +41,19 @@ module.exports.getSubforum = async (req, res) => {
  *                              Create New Forum(temp)
  *                                                                                      */
 //========================================================================================
-// module.exports.createForum = async (req, res) => {
-//   try {
-//     let { title, desc } = req.body;
-//     const forum = new Forum({
-//       title: title,
-//       description: desc,
-//       numberOfPosts: 0,
-//     });
+module.exports.createForum = async (req, res) => {
+  try {
+    let { title, desc, url } = req.body;
+    const forum = new Forum({
+      title: title,
+      description: desc,
+      url: url,
+      numberOfPosts: 0,
+    });
 
-//     const saveForum = await forum.save();
-//     res.json(saveForum);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
+    const saveForum = await forum.save();
+    res.json(saveForum);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

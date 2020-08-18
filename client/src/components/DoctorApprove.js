@@ -183,14 +183,14 @@ export default function Album() {
                     <CardHeader
                       avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                          {doctor.userName}
+                          {doctor.firstName.charAt(0)}
                         </Avatar>
                       }
                       action={
                         <form>
                           <Box>
                             <a href="/" color="black">
-                              Verify Certificate
+                              Certificate
                             </a>
                           </Box>
                           <IconButton>
@@ -212,7 +212,14 @@ export default function Album() {
                           </IconButton>
                         </form>
                       }
-                      title={doctor.firstName + " " + doctor.lastName}
+                      title={
+                        doctor.firstName +
+                        " " +
+                        doctor.lastName +
+                        "  (  " +
+                        doctor.userName +
+                        " )"
+                      }
                       subheader={doctor.email}
                     />
                   </Card>

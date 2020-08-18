@@ -53,7 +53,7 @@ router.get("/docs/getusers4doc", auth, Doc.getdocchats);
 
 const Forum = require("./controllers/forumController");
 
-// router.post("/forum/create", Forum.createForum); // temporary
+router.post("/forum/create", Forum.createForum); // temporary
 router.get("/forum/", Forum.homepage);
 router.get("/forum/:id", Forum.getSubforum);
 
