@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     position: "fixed",
     bottom: 20,
-    width: "40%",
+    width: "90%",
     paddingRight: 5,
     paddingLeft: 5,
   },
@@ -159,7 +159,7 @@ function Datafetching() {
         <CssBaseline />
         <CssBaseline />
         <main>
-          <Container className={classes.cardGrid} maxWidth="sm">
+          <Container className={classes.cardGrid}>
             <Grid container>
               {messages.map((mes, index) => {
                 if (mes.sender === 1) {
@@ -190,6 +190,7 @@ function Datafetching() {
         <form onSubmit={submitClick} className={classes.textField}>
           <Input
             required
+            autoFocus
             className={classes.textField}
             variant="outlined"
             placeholder="Message"
