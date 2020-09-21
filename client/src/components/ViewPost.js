@@ -93,7 +93,7 @@ export default function RecipeReviewCard() {
 
   useEffect(() => {
     (async () => {
-      const ttt = await axios.get("http://localhost:5000/api/users", {
+      const ttt = await axios.get("/api/users", {
         headers: { "x-auth-token": tokenn },
       });
       console.log("running it once");
@@ -105,15 +105,11 @@ export default function RecipeReviewCard() {
 
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/post/" + postId
-      );
+      const postData = await axios.get("/api/post/" + postId);
       // console.log(postData);
       setPost(postData.data);
 
-      const commentData = await axios.get(
-        "http://localhost:5000/api/post/getComments/" + postId
-      );
+      const commentData = await axios.get("/api/post/getComments/" + postId);
       // console.log(commentData);
       setComments(commentData.data);
 
@@ -134,7 +130,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.delete(
-            "http://localhost:5000/api/post/delete/" + e,
+            "/api/post/delete/" + e,
             { headers: { "x-auth-token": tokenn } },
             {}
           );
@@ -161,7 +157,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.delete(
-            "http://localhost:5000/api/comment/delete/" + e,
+            "/api/comment/delete/" + e,
             { headers: { "x-auth-token": tokenn } },
             {}
           );
@@ -186,15 +182,13 @@ export default function RecipeReviewCard() {
         alert("Please login first");
       } else {
         const loginRes = await axios.post(
-          "http://localhost:5000/api/comment/create/" + postId,
+          "/api/comment/create/" + postId,
           newComment,
           { headers: { "x-auth-token": tokenn } }
         );
 
         setComment("");
-        const commentData = await axios.get(
-          "http://localhost:5000/api/post/getComments/" + postId
-        );
+        const commentData = await axios.get("/api/post/getComments/" + postId);
         // console.log(commentData);
         setComments(commentData.data);
       }
@@ -219,7 +213,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/post/postUpvote/" + e,
+            "/api/post/postUpvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );
@@ -246,7 +240,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/post/postDownvote/" + e,
+            "/api/post/postDownvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );
@@ -273,7 +267,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/comment/postUpvote/" + e,
+            "/api/comment/postUpvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );
@@ -300,7 +294,7 @@ export default function RecipeReviewCard() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/comment/postDownvote/" + e,
+            "/api/comment/postDownvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );

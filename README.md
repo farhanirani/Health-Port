@@ -1,8 +1,10 @@
 # HealthPort
 
+### A forum based Health discussion Portal for doctors and patients, personal messaging between doctors and patients and a chatbot for quick diagnosis
+
 <hr>
 
-### Instructions to install
+### Instructions to run
 
 open a terminal in this folder directory
 
@@ -10,10 +12,4 @@ open a terminal in this folder directory
 
 > node server.js
 
-open another terminal
-
-> cd client
-
-> npm i
-
-> npm start
+now open [http://localhost:5000](http://localhost:5000)

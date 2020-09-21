@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import Input from "@material-ui/core/TextField";
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
   },
   chatCont: {
-    bottom: 95,
     width: "100%",
     overflowY: "scroll",
   },
@@ -77,37 +76,14 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-    Left: 20,
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
   cardGrid: {
     paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(8),
+    marginBottom: 95,
+    maxHeight: "55vh",
   },
   card: {
     height: "100%",
     flexDirection: "column",
-  },
-  cardMedia: {
-    paddingTop: "56.25%", // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-  root: {
-    width: "100%",
-  },
-  pos: {
-    marginBottom: 12,
   },
 }));
 
@@ -127,13 +103,22 @@ function Datafetching() {
 
   // *****************
   // *****************
-
+  const scrollToBottom = (e) => {
+    setTimeout(() => {
+      console.log("World!");
+    }, 50);
+    var elem = document.getElementById("scrolldiv");
+    elem.scrollTop = elem.scrollHeight;
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
   const submitClick = (e) => {
     e.preventDefault();
     setMessages((prevState) => [...prevState, { text: message, sender: 2 }]);
 
     axios
-      .post(`http://localhost:5000/api/chatbot/send`, {
+      .post(`/api/chatbot/send`, {
         MSG: message,
       })
       .then((res) => {
@@ -142,6 +127,7 @@ function Datafetching() {
           ...prevState,
           { text: res.data.Reply, sender: 1 },
         ]);
+        scrollToBottom();
       })
       .catch((err) => {
         console.log(err);
@@ -160,7 +146,7 @@ function Datafetching() {
         <CssBaseline />
         <main>
           <Container className={classes.cardGrid}>
-            <Grid container>
+            <Grid id="scrolldiv" container>
               {messages.map((mes, index) => {
                 if (mes.sender === 1) {
                   return (
@@ -185,7 +171,9 @@ function Datafetching() {
 
   return (
     <>
-      <div className={classes.chatCont}>{displayMessages()}</div>
+      <div className={classes.chatCont} id="scrolldiv">
+        {displayMessages()}
+      </div>
       <div className={classes.textFieldCenter}>
         <form onSubmit={submitClick} className={classes.textField}>
           <Input
@@ -198,7 +186,7 @@ function Datafetching() {
             onChange={(e) => setMessage(e.target.value)}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment onClick={submitClick} position="end">
                   <SendIcon />
                 </InputAdornment>
               ),

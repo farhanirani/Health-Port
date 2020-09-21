@@ -30,13 +30,11 @@ export default function App() {
         localStorage.setItem("auth-token", "");
         token = "";
       }
-      const tokenRes = await axios.post(
-        "http://localhost:5000/api/users/tokenIsValid",
-        null,
-        { headers: { "x-auth-token": token } }
-      );
+      const tokenRes = await axios.post("/api/users/tokenIsValid", null, {
+        headers: { "x-auth-token": token },
+      });
       if (tokenRes.data) {
-        const userRes = await axios.get("http://localhost:5000/api/users/", {
+        const userRes = await axios.get("/api/users/", {
           headers: { "x-auth-token": token },
         });
         setUserData({

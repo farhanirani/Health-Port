@@ -99,10 +99,9 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const forumdata = await axios.get(
-        "http://localhost:5000/api/docs/getdoctorsforvalidation",
-        { headers: { "x-auth-token": tokenn } }
-      );
+      const forumdata = await axios.get("/api/docs/getdoctorsforvalidation", {
+        headers: { "x-auth-token": tokenn },
+      });
       console.log(forumdata.data);
       setdoctors(forumdata.data);
       setLoading(false);
@@ -122,7 +121,7 @@ export default function Album() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/docs/getdoctorsforvalidation/" + e,
+            "/api/docs/getdoctorsforvalidation/" + e,
             { accepted: false },
             { headers: { "x-auth-token": tokenn } }
           );
@@ -149,7 +148,7 @@ export default function Album() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/docs/getdoctorsforvalidation/" + e,
+            "/api/docs/getdoctorsforvalidation/" + e,
             { accepted: true },
             { headers: { "x-auth-token": tokenn } }
           );

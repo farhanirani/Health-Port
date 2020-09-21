@@ -9,6 +9,8 @@ const fs = require("fs");
 
 const app = express();
 
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json());
 app.use(cors());
 app.use(upload());
@@ -20,13 +22,10 @@ app.use(
 const routes = require("./routes");
 app.use("/api", routes);
 
-// check if its in build
-// if (PORT !== 5000) {
-//   app.use(express.static(join(__dirname, "client", "build")));
-//   app.use("*", (req, res) => {
-//     res.sendFile(join(__dirname, "client", "build", "index.html"));
-//   });
-// }
+// Handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 // mongoDB connection
 mongoose

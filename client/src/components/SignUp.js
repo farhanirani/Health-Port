@@ -94,10 +94,7 @@ export default function SignUp() {
             confirmPassword,
             role: "user",
           };
-          const reguser = await axios.post(
-            "http://localhost:5000/api/users/register",
-            data
-          );
+          const reguser = await axios.post("/api/users/register", data);
           setLoading(false);
           alert("Success, now you can login");
           history.push("/login");
@@ -117,11 +114,9 @@ export default function SignUp() {
             form.append("certificate", file);
             // console.log(form);
 
-            const reguser = await axios.post(
-              "http://localhost:5000/api/users/registerdoc",
-              form,
-              { headers: { "Content-Type": "multipart/form-data" } }
-            );
+            const reguser = await axios.post("/api/users/registerdoc", form, {
+              headers: { "Content-Type": "multipart/form-data" },
+            });
 
             // console.log(reguser);
             setLoading(false);

@@ -47,7 +47,7 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const forumdata = await axios.get("http://localhost:5000/api/forum");
+      const forumdata = await axios.get("/api/forum");
       setForums(forumdata.data);
       setLoading(false);
     })();

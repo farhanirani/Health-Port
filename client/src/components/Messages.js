@@ -93,24 +93,19 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const userrr = await axios.get("http://localhost:5000/api/users", {
+      const userrr = await axios.get("/api/users", {
         headers: { "x-auth-token": tokenn },
       });
       setuser(userrr.data.role);
       if (userrr.data.role === "doctor") {
-        const postData = await axios.get(
-          "http://localhost:5000/api/docs/getusers4doc",
-          {
-            headers: { "x-auth-token": tokenn },
-          }
-        );
+        const postData = await axios.get("/api/docs/getusers4doc", {
+          headers: { "x-auth-token": tokenn },
+        });
         console.log(postData.data);
         setPosts(postData.data);
         setLoading(false);
       } else {
-        const postData = await axios.get(
-          "http://localhost:5000/api/docs/getdoctors"
-        );
+        const postData = await axios.get("/api/docs/getdoctors");
         console.log(postData.data);
         setPosts(postData.data);
         setLoading(false);

@@ -89,7 +89,7 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const ttt = await axios.get("http://localhost:5000/api/users", {
+      const ttt = await axios.get("/api/users", {
         headers: { "x-auth-token": tokenn },
       });
       console.log("running it once");
@@ -129,7 +129,7 @@ export default function Album() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/post/postUpvote/" + e,
+            "/api/post/postUpvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );
@@ -156,7 +156,7 @@ export default function Album() {
           setLoading(false);
         } else {
           const temp = await axios.post(
-            "http://localhost:5000/api/post/postDownvote/" + e,
+            "/api/post/postDownvote/" + e,
             {},
             { headers: { "x-auth-token": tokenn } }
           );
@@ -182,7 +182,7 @@ export default function Album() {
           setLoading(false);
         } else {
           const temp = await axios.delete(
-            "http://localhost:5000/api/post/delete/" + e,
+            "/api/post/delete/" + e,
             { headers: { "x-auth-token": tokenn } },
             {}
           );
@@ -207,9 +207,7 @@ export default function Album() {
 
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/forum/" + forumId
-      );
+      const postData = await axios.get("/api/forum/" + forumId);
 
       // console.log(postData);
       setPosts(postData.data.data);

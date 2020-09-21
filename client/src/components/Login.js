@@ -55,10 +55,7 @@ export default function Login() {
       const loginUser = { userName, password };
       // console.log(loginUser);
       setLoading(true);
-      const loginRes = await axios.post(
-        "http://localhost:5000/api/users/login",
-        loginUser
-      );
+      const loginRes = await axios.post("/api/users/login", loginUser);
       setLoading(false);
       // console.log(loginUser);
       setUserData({

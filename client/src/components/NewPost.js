@@ -42,9 +42,7 @@ export default function Login() {
 
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        "http://localhost:5000/api/forum/" + forumId
-      );
+      const postData = await axios.get("/api/forum/" + forumId);
       // console.log(postData);
       setForumName(postData.data.forumName.title);
       setLoading(false);
@@ -67,11 +65,9 @@ export default function Login() {
         alert("Please login first");
         setLoading(false);
       } else {
-        const temp = await axios.post(
-          "http://localhost:5000/api/post/create",
-          newPost,
-          { headers: { "x-auth-token": tokenn } }
-        );
+        const temp = await axios.post("/api/post/create", newPost, {
+          headers: { "x-auth-token": tokenn },
+        });
         setLoading(false);
         history.push("/post/" + temp.data._id);
       }

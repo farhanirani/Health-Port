@@ -124,10 +124,9 @@ function Datafetching() {
 
   useEffect(() => {
     (async () => {
-      const postData = await axios.get(
-        `http://localhost:5000/api/messages/` + otherpersonid,
-        { headers: { "x-auth-token": tokenn } }
-      );
+      const postData = await axios.get(`/api/messages/` + otherpersonid, {
+        headers: { "x-auth-token": tokenn },
+      });
       console.log(otherpersonid);
       console.log(postData.data);
       setMessages(postData.data);
@@ -149,7 +148,7 @@ function Datafetching() {
         setLoading(false);
       } else {
         const temp = await axios.post(
-          "http://localhost:5000/api//messages/add/" + otherpersonid,
+          "/api//messages/add/" + otherpersonid,
           newPost,
           { headers: { "x-auth-token": tokenn } }
         );
@@ -211,7 +210,7 @@ function Datafetching() {
             onChange={(e) => setMessage(e.target.value)}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment onClick={submitClick} position="end">
                   <SendIcon />
                 </InputAdornment>
               ),
